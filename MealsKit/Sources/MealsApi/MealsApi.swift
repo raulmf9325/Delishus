@@ -2,5 +2,15 @@
 import Foundation
 
 public struct MealsApi {
-    var getDesserts: () -> Void
+    public init(getDesserts: @escaping () async throws -> [Meal]) {
+        self.getDesserts = getDesserts
+    }
+    
+    public var getDesserts: () async throws -> [Meal]
+}
+
+public extension MealsApi {
+    static let test = Self {
+        return [Meal].mock
+    }
 }

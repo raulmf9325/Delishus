@@ -5,6 +5,7 @@
 //  Created by Raul Mena on 9/8/24.
 //
 
+import MealsApiLive
 import MealsList
 import SwiftUI
 
@@ -12,11 +13,7 @@ import SwiftUI
 struct mealsApp: App {
     var body: some Scene {
         WindowGroup {
-            MealsListView()
+            MealsListView(model: MealsListModel(apiClient: .live))
         }
     }
-}
-
-#Preview {
-    MealsListView()
 }

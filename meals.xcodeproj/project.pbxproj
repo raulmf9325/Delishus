@@ -11,6 +11,8 @@
 		06262D512C8E3DC200E75DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06262D502C8E3DC200E75DA4 /* Assets.xcassets */; };
 		06262D542C8E3DC200E75DA4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06262D532C8E3DC200E75DA4 /* Preview Assets.xcassets */; };
 		0649F6F72C8E4619008159BA /* MealsList in Frameworks */ = {isa = PBXBuildFile; productRef = 0649F6F62C8E4619008159BA /* MealsList */; };
+		0649F6F92C8E55A8008159BA /* MealsApi in Frameworks */ = {isa = PBXBuildFile; productRef = 0649F6F82C8E55A8008159BA /* MealsApi */; };
+		0649F6FB2C8E55A8008159BA /* MealsApiLive in Frameworks */ = {isa = PBXBuildFile; productRef = 0649F6FA2C8E55A8008159BA /* MealsApiLive */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0649F6F92C8E55A8008159BA /* MealsApi in Frameworks */,
+				0649F6FB2C8E55A8008159BA /* MealsApiLive in Frameworks */,
 				0649F6F72C8E4619008159BA /* MealsList in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +98,8 @@
 			name = meals;
 			packageProductDependencies = (
 				0649F6F62C8E4619008159BA /* MealsList */,
+				0649F6F82C8E55A8008159BA /* MealsApi */,
+				0649F6FA2C8E55A8008159BA /* MealsApiLive */,
 			);
 			productName = meals;
 			productReference = 06262D492C8E3DC100E75DA4 /* meals.app */;
@@ -362,6 +368,14 @@
 		0649F6F62C8E4619008159BA /* MealsList */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MealsList;
+		};
+		0649F6F82C8E55A8008159BA /* MealsApi */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealsApi;
+		};
+		0649F6FA2C8E55A8008159BA /* MealsApiLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealsApiLive;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

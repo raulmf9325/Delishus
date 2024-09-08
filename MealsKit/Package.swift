@@ -9,13 +9,13 @@ let package = Package(
         .iOS(.v16)
     ],
     products: [
-        .library(
-            name: "MealsList", targets: ["MealsList"]),
+        .library(name: "MealsList", targets: ["MealsList"]),
+        .library(name: "MealsApi", targets: ["MealsApi"]),
+        .library(name: "MealsApiLive", targets: ["MealsApiLive"]),
     ],
     targets: [
-        .target(
-            name: "MealsApi"),
-        .target(
-            name: "MealsList"),
+        .target(name: "MealsApi"),
+        .target(name: "MealsApiLive", dependencies: ["MealsApi"]),
+        .target(name: "MealsList", dependencies: ["MealsApi"]),
     ]
 )
