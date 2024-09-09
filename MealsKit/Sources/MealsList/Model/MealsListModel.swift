@@ -32,7 +32,9 @@ public class MealsListModel: ObservableObject {
 
         Task { @MainActor in
             do {
-                self.desserts = try await apiClient.getDesserts()
+                self.desserts = try await apiClient
+                    .getDesserts()
+                    .sorted(by: { $0.name < $1.name })
                 isLoading = false
             } catch {
                 isLoading = false
