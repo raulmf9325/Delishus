@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06262D4D2C8E3DC100E75DA4 /* mealsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06262D4C2C8E3DC100E75DA4 /* mealsApp.swift */; };
+		06262D4D2C8E3DC100E75DA4 /* MealsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06262D4C2C8E3DC100E75DA4 /* MealsApp.swift */; };
 		06262D512C8E3DC200E75DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06262D502C8E3DC200E75DA4 /* Assets.xcassets */; };
 		06262D542C8E3DC200E75DA4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06262D532C8E3DC200E75DA4 /* Preview Assets.xcassets */; };
 		0649F6F72C8E4619008159BA /* MealsList in Frameworks */ = {isa = PBXBuildFile; productRef = 0649F6F62C8E4619008159BA /* MealsList */; };
@@ -18,7 +18,7 @@
 /* Begin PBXFileReference section */
 		0624EC432C8E4437007ADC57 /* MealsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MealsKit; sourceTree = "<group>"; };
 		06262D492C8E3DC100E75DA4 /* Meals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meals.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		06262D4C2C8E3DC100E75DA4 /* mealsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mealsApp.swift; sourceTree = "<group>"; };
+		06262D4C2C8E3DC100E75DA4 /* MealsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsApp.swift; sourceTree = "<group>"; };
 		06262D502C8E3DC200E75DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06262D532C8E3DC200E75DA4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,7 +58,7 @@
 		06262D4B2C8E3DC100E75DA4 /* Meals */ = {
 			isa = PBXGroup;
 			children = (
-				06262D4C2C8E3DC100E75DA4 /* mealsApp.swift */,
+				06262D4C2C8E3DC100E75DA4 /* MealsApp.swift */,
 				06262D502C8E3DC200E75DA4 /* Assets.xcassets */,
 				06262D522C8E3DC200E75DA4 /* Preview Content */,
 			);
@@ -155,7 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06262D4D2C8E3DC100E75DA4 /* mealsApp.swift in Sources */,
+				06262D4D2C8E3DC100E75DA4 /* MealsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,10 +10,14 @@ import MealsList
 import SwiftUI
 
 @main
-struct mealsApp: App {
+struct MealsApp: App {
     var body: some Scene {
         WindowGroup {
             MealsListView(model: MealsListModel(apiClient: .live))
         }
     }
+}
+
+#Preview {
+    MealsListView(model: MealsListModel(apiClient: .live))
 }

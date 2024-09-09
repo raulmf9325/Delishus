@@ -18,23 +18,29 @@ public struct MealsListView: View {
 
     public var body: some View {
         NavigationStack {
-            List {
-                ForEach(model.desserts) { meal in
-                    HStack {
-                        Text(meal.name)
-                        Spacer()
-                        WebImage(url: meal.imageURL) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .clipShape(RoundedRectangle(cornerRadius: 4))
-                        } placeholder: {
-                            Image(systemName: "photo.fill")
-                                .font(.system(size: 50))
+            Group {
+                if model.isLoading {
+                    MealsListLoadingView()
+                } else {
+                    List {
+                        ForEach(model.desserts) { meal in
+                            HStack {
+                                Text(meal.name)
+                                Spacer()
+                                WebImage(url: meal.imageURL) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                                } placeholder: {
+                                    Image(systemName: "photo.fill")
+                                        .font(.system(size: 60))
+                                }
+                                .frame(width: 100, height: 100)
+                            }
+                            .padding()
                         }
-                        .frame(width: 100, height: 100)
                     }
-                    .padding()
                 }
             }
             .navigationTitle("Desserts")

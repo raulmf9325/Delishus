@@ -16,15 +16,20 @@ public class MealsListModel: ObservableObject {
         getDesserts()
     }
 
+    @Published var isLoading = false
     @Published var desserts = [Meal]()
 
     private let apiClient: MealsApi
 
     private func getDesserts() {
+        isLoading = true
+
         Task { @MainActor in
             do {
                 self.desserts = try await apiClient.getDesserts()
+                isLoading = false
             } catch {
+                isLoading = false
                 print("MealsListModel - error fetching desserts: \(error.localizedDescription)")
             }
         }
