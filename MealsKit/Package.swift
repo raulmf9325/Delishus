@@ -13,9 +13,12 @@ let package = Package(
         .library(name: "MealsApi", targets: ["MealsApi"]),
         .library(name: "MealsApiLive", targets: ["MealsApiLive"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", from: "3.0.0"),
+    ],
     targets: [
         .target(name: "MealsApi"),
         .target(name: "MealsApiLive", dependencies: ["MealsApi"]),
-        .target(name: "MealsList", dependencies: ["MealsApi"]),
+        .target(name: "MealsList", dependencies: ["MealsApi", "SDWebImageSwiftUI"]),
     ]
 )

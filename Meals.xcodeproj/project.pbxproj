@@ -17,7 +17,7 @@
 
 /* Begin PBXFileReference section */
 		0624EC432C8E4437007ADC57 /* MealsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MealsKit; sourceTree = "<group>"; };
-		06262D492C8E3DC100E75DA4 /* meals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meals.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		06262D492C8E3DC100E75DA4 /* Meals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06262D4C2C8E3DC100E75DA4 /* mealsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mealsApp.swift; sourceTree = "<group>"; };
 		06262D502C8E3DC200E75DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06262D532C8E3DC200E75DA4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -41,7 +41,7 @@
 			isa = PBXGroup;
 			children = (
 				0624EC432C8E4437007ADC57 /* MealsKit */,
-				06262D4B2C8E3DC100E75DA4 /* meals */,
+				06262D4B2C8E3DC100E75DA4 /* Meals */,
 				06262D4A2C8E3DC100E75DA4 /* Products */,
 				0649F6F52C8E4619008159BA /* Frameworks */,
 			);
@@ -50,19 +50,19 @@
 		06262D4A2C8E3DC100E75DA4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				06262D492C8E3DC100E75DA4 /* meals.app */,
+				06262D492C8E3DC100E75DA4 /* Meals.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		06262D4B2C8E3DC100E75DA4 /* meals */ = {
+		06262D4B2C8E3DC100E75DA4 /* Meals */ = {
 			isa = PBXGroup;
 			children = (
 				06262D4C2C8E3DC100E75DA4 /* mealsApp.swift */,
 				06262D502C8E3DC200E75DA4 /* Assets.xcassets */,
 				06262D522C8E3DC200E75DA4 /* Preview Content */,
 			);
-			path = meals;
+			path = Meals;
 			sourceTree = "<group>";
 		};
 		06262D522C8E3DC200E75DA4 /* Preview Content */ = {
@@ -83,9 +83,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		06262D482C8E3DC100E75DA4 /* meals */ = {
+		06262D482C8E3DC100E75DA4 /* Meals */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "meals" */;
+			buildConfigurationList = 06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Meals" */;
 			buildPhases = (
 				06262D452C8E3DC100E75DA4 /* Sources */,
 				06262D462C8E3DC100E75DA4 /* Frameworks */,
@@ -95,14 +95,14 @@
 			);
 			dependencies = (
 			);
-			name = meals;
+			name = Meals;
 			packageProductDependencies = (
 				0649F6F62C8E4619008159BA /* MealsList */,
 				0649F6F82C8E55A8008159BA /* MealsApi */,
 				0649F6FA2C8E55A8008159BA /* MealsApiLive */,
 			);
 			productName = meals;
-			productReference = 06262D492C8E3DC100E75DA4 /* meals.app */;
+			productReference = 06262D492C8E3DC100E75DA4 /* Meals.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -120,7 +120,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "meals" */;
+			buildConfigurationList = 06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Meals" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -133,7 +133,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				06262D482C8E3DC100E75DA4 /* meals */,
+				06262D482C8E3DC100E75DA4 /* Meals */,
 			);
 		};
 /* End PBXProject section */
@@ -344,7 +344,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "meals" */ = {
+		06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Meals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				06262D552C8E3DC200E75DA4 /* Debug */,
@@ -353,7 +353,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "meals" */ = {
+		06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Meals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				06262D582C8E3DC200E75DA4 /* Debug */,

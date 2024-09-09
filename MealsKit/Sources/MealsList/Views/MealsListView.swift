@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SDWebImageSwiftUI
 import SwiftUI
 
 public struct MealsListView: View {
@@ -16,25 +17,27 @@ public struct MealsListView: View {
     @ObservedObject var model: MealsListModel
 
     public var body: some View {
-        List {
-            ForEach(model.desserts) { meal in
-                HStack {
-                    Text(meal.name)
-                    Spacer()
-                    AsyncImage(url: meal.imageURL) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                    } placeholder: {
-                        Image(systemName: "photo.fill")
-                            .frame(width: 100)
+        NavigationStack {
+            List {
+                ForEach(model.desserts) { meal in
+                    HStack {
+                        Text(meal.name)
+                        Spacer()
+                        WebImage(url: meal.imageURL) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .clipShape(RoundedRectangle(cornerRadius: 4))
+                        } placeholder: {
+                            Image(systemName: "photo.fill")
+                                .font(.system(size: 50))
+                        }
+                        .frame(width: 100, height: 100)
                     }
-
+                    .padding()
                 }
-                .padding()
             }
+            .navigationTitle("Desserts")
         }
     }
 }
