@@ -21,6 +21,9 @@ public struct MealsListView: View {
             Group {
                 if model.isLoading {
                     MealsListLoadingView()
+                } else if let error = model.error {
+                    MealsListErrorView(errorMessage: error, 
+                                       onRetryButtonTapped: model.onRetryButtonTapped)
                 } else {
                     List {
                         ForEach(model.desserts) { meal in

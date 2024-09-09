@@ -13,4 +13,8 @@ public extension MealsApi {
     static let test = Self {
         return [Meal].mock
     }
+
+    static let failed = Self {
+        throw URLError(.badServerResponse)
+    }
 }

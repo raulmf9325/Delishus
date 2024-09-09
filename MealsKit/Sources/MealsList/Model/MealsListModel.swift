@@ -16,12 +16,18 @@ public class MealsListModel: ObservableObject {
         getDesserts()
     }
 
-    @Published var isLoading = false
     @Published var desserts = [Meal]()
+    @Published var isLoading = false
+    @Published var error: String?
 
     private let apiClient: MealsApi
 
+    func onRetryButtonTapped() {
+        getDesserts()
+    }
+
     private func getDesserts() {
+        error = nil
         isLoading = true
 
         Task { @MainActor in
@@ -30,7 +36,7 @@ public class MealsListModel: ObservableObject {
                 isLoading = false
             } catch {
                 isLoading = false
-                print("MealsListModel - error fetching desserts: \(error.localizedDescription)")
+                self.error = error.localizedDescription
             }
         }
     }
