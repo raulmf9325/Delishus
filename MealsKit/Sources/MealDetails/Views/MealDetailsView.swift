@@ -22,8 +22,9 @@ public struct MealDetailsView: View {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 20) {
                         image
-                    VStack(alignment: .leading, spacing: 15) {
+                    VStack(alignment: .leading, spacing: 20) {
                         title
+                        ingredients
                         instructions
                     }
                     .padding(.horizontal)
@@ -58,8 +59,32 @@ public struct MealDetailsView: View {
                 .font(.title2)
                 .bold()
         } else {
-            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit")
-                .redacted(reason: .placeholder)
+            placeholderText
+        }
+    }
+
+    @ViewBuilder
+    var ingredients: some View {
+        if let ingredients = model.mealDetails?.ingredientAmounts {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Ingredients")
+                    .font(.title3)
+                    .bold()
+                    .underline()
+
+                VStack(alignment: .leading, spacing: 8) {
+                    ForEach(ingredients.sorted(by: <), id: \.key) { ingredient, amount in
+                        HStack {
+                            Text("\(ingredient):")
+                                .bold()
+                            Text(amount)
+                        }
+                        .font(.callout)
+                    }
+                }
+            }
+        } else {
+            placeholderText
         }
     }
 
@@ -74,10 +99,7 @@ public struct MealDetailsView: View {
                     .font(.callout)
             }
         } else {
-            Text("""
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit\nLorem ipsum dolor sit amet, consectetur adipiscing elit
-                """)
-            .redacted(reason: .placeholder)
+            placeholderText
         }
     }
 
@@ -101,6 +123,13 @@ public struct MealDetailsView: View {
                 .frame(height: 250)
                 .foregroundStyle(.gray)
         }
+    }
+
+    var placeholderText: some View {
+        Text("""
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit\nLorem ipsum dolor sit amet, consectetur adipiscing elit
+            """)
+        .redacted(reason: .placeholder)
     }
 }
 
