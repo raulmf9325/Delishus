@@ -34,16 +34,8 @@ public struct MealsListView: View {
                                 HStack {
                                     Text(meal.name)
                                     Spacer()
-                                    WebImage(url: meal.imageURL) { image in
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                                    } placeholder: {
-                                        Image(systemName: "photo.fill")
-                                            .font(.system(size: 60))
-                                    }
-                                    .frame(width: 100, height: 100)
+                                    thumbnailImage(meal: meal)
+                                        .padding(.leading)
                                 }
                                 .padding()
                             }
@@ -57,6 +49,19 @@ public struct MealsListView: View {
             }
             .navigationTitle("Desserts")
         }
+    }
+
+    func thumbnailImage(meal: Meal) -> some View {
+        WebImage(url: meal.imageURL) { image in
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+        } placeholder: {
+            Image(systemName: "photo.circle.fill")
+                .font(.system(size: 90))
+        }
+        .frame(width: 100, height: 100)
+        .clipShape(Circle())
     }
 }
 

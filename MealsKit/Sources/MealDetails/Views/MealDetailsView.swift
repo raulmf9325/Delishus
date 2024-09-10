@@ -115,6 +115,7 @@ public struct MealDetailsView: View {
                 Text("Instructions")
                     .font(.title3)
                     .bold()
+                    .underline()
                 Text(instructions)
                     .font(.callout)
             }

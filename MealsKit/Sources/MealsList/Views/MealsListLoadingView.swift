@@ -16,9 +16,11 @@ struct MealsListLoadingView: View {
                         .redacted(reason: .placeholder)
 
                     Spacer()
-                    Image(systemName: "photo.fill")
-                        .font(.system(size: 90))
+                    Image(systemName: "photo.circle.fill")
+                        .resizable()
+                        .frame(width: 100, height: 100)
                         .redacted(reason: .placeholder)
+                        .clipShape(Circle())
                 }
                 .padding()
             }
