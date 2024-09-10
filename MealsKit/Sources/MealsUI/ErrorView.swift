@@ -1,17 +1,22 @@
 //
-//  MealsListErrorView.swift
+//  ErrorView.swift
 //
 //
-//  Created by Raul Mena on 9/8/24.
+//  Created by Raul Mena on 9/9/24.
 //
 
 import SwiftUI
 
-struct MealsListErrorView: View {
+public struct ErrorView: View {
+    public init(errorMessage: String, onRetryButtonTapped: @escaping () -> Void) {
+        self.errorMessage = errorMessage
+        self.onRetryButtonTapped = onRetryButtonTapped
+    }
+    
     let errorMessage: String
     let onRetryButtonTapped: () -> Void
 
-    var body: some View {
+    public var body: some View {
         VStack {
             Image(systemName: "exclamationmark.triangle.fill")
                 .font(.system(size: 50))
@@ -38,6 +43,6 @@ struct MealsListErrorView: View {
 }
 
 #Preview {
-    MealsListErrorView(errorMessage: "Server error", 
-                       onRetryButtonTapped: {})
+    ErrorView(errorMessage: "Server error",
+              onRetryButtonTapped: {})
 }

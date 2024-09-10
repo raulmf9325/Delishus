@@ -6,6 +6,7 @@
 //
 
 import MealsApi
+import MealsUI
 import SDWebImageSwiftUI
 import SwiftUI
 
@@ -18,31 +19,36 @@ public struct MealDetailsView: View {
     @Environment(\.dismiss) private var dismiss
 
     public var body: some View {
-        ZStack(alignment: .topLeading) {
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 20) {
+        if let error = model.error {
+            ErrorView(errorMessage: error,
+                      onRetryButtonTapped: model.onRetryButtonTapped)
+        } else {
+            ZStack(alignment: .topLeading) {
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 20) {
                         image
-                    VStack(alignment: .leading, spacing: 20) {
-                        title
-                        ingredients
-                        watchOnYoutubeButton
-                        instructions
+                        VStack(alignment: .leading, spacing: 20) {
+                            title
+                            ingredients
+                            watchOnYoutubeButton
+                            instructions
+                        }
+                        .padding(.horizontal)
+                        Spacer()
                     }
-                    .padding(.horizontal)
-                    Spacer()
                 }
-            }
-            .ignoresSafeArea()
+                .ignoresSafeArea()
 
-            backButton
-                .padding(.horizontal, 25)
-        }
-        .toolbar(.hidden)
-        .navigationBarBackButtonHidden()
-        .sheet(item: $model.sheet) { sheet in
-            switch sheet {
-            case let .webView(stringURL):
-                WatchOnYouTubeView(stringURL: stringURL)
+                backButton
+                    .padding(.horizontal, 25)
+            }
+            .toolbar(.hidden)
+            .navigationBarBackButtonHidden()
+            .sheet(item: $model.sheet) { sheet in
+                switch sheet {
+                case let .webView(stringURL):
+                    WatchOnYouTubeView(stringURL: stringURL)
+                }
             }
         }
     }

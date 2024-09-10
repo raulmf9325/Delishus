@@ -9,6 +9,7 @@ import Foundation
 import MealsApi
 import MealsApiLive
 import MealDetails
+import MealsUI
 import SDWebImageSwiftUI
 import SwiftUI
 
@@ -25,8 +26,8 @@ public struct MealsListView: View {
                 if model.isLoading {
                     MealsListLoadingView()
                 } else if let error = model.error {
-                    MealsListErrorView(errorMessage: error, 
-                                       onRetryButtonTapped: model.onRetryButtonTapped)
+                    ErrorView(errorMessage: error,
+                              onRetryButtonTapped: model.onRetryButtonTapped)
                 } else {
                     List {
                         ForEach(model.desserts) { meal in

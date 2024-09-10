@@ -20,7 +20,8 @@ let package = Package(
     targets: [
         .target(name: "MealsApi"),
         .target(name: "MealsApiLive", dependencies: ["MealsApi"]),
-        .target(name: "MealsList", dependencies: ["MealsApi", "MealsApiLive", "MealDetails", "SDWebImageSwiftUI"]),
-        .target(name: "MealDetails", dependencies: ["MealsApi", "SDWebImageSwiftUI"]),
+        .target(name: "MealsList", dependencies: ["MealsUI", "MealsApi", "MealsApiLive", "MealDetails", "SDWebImageSwiftUI"]),
+        .target(name: "MealDetails", dependencies: ["MealsUI", "MealsApi", "SDWebImageSwiftUI"]),
+        .target(name: "MealsUI"),
     ]
 )

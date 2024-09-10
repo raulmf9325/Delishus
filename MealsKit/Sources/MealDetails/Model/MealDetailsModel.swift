@@ -31,6 +31,7 @@ public class MealDetailsModel: ObservableObject {
             }
         }
     }
+    
     @Published var sheet: Sheet?
 
     private let meal: Meal
@@ -39,6 +40,10 @@ public class MealDetailsModel: ObservableObject {
     func onWatchOnYouTubeButtonTapped() {
         guard let stringURL = mealDetails?.youtubeURL else { return }
         sheet = .webView(stringURL)
+    }
+
+    func onRetryButtonTapped() {
+        getDetails()
     }
 
     private func getDetails() {
