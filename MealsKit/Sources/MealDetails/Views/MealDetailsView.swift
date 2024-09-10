@@ -25,6 +25,7 @@ public struct MealDetailsView: View {
                     VStack(alignment: .leading, spacing: 20) {
                         title
                         ingredients
+                        watchOnYoutubeButton
                         instructions
                     }
                     .padding(.horizontal)
@@ -38,6 +39,12 @@ public struct MealDetailsView: View {
         }
         .toolbar(.hidden)
         .navigationBarBackButtonHidden()
+        .sheet(item: $model.sheet) { sheet in
+            switch sheet {
+            case let .webView(stringURL):
+                WatchOnYouTubeView(stringURL: stringURL)
+            }
+        }
     }
 
     var backButton: some View {
@@ -60,6 +67,19 @@ public struct MealDetailsView: View {
                 .bold()
         } else {
             placeholderText
+        }
+    }
+
+    var watchOnYoutubeButton: some View {
+        Button(action: {model.onWatchOnYouTubeButtonTapped()}) {
+            HStack {
+                Image(systemName: "play.circle")
+                    .foregroundStyle(.red)
+                    .font(.title2)
+
+                Text("Watch on YouTube")
+                    .foregroundStyle(.red)
+            }
         }
     }
 
