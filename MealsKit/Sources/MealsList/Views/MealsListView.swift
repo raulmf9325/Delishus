@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import MealsApi
+import MealsApiLive
+import MealDetails
 import SDWebImageSwiftUI
 import SwiftUI
 
@@ -27,22 +30,28 @@ public struct MealsListView: View {
                 } else {
                     List {
                         ForEach(model.desserts) { meal in
-                            HStack {
-                                Text(meal.name)
-                                Spacer()
-                                WebImage(url: meal.imageURL) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                                } placeholder: {
-                                    Image(systemName: "photo.fill")
-                                        .font(.system(size: 60))
+                            NavigationLink(value: meal) {
+                                HStack {
+                                    Text(meal.name)
+                                    Spacer()
+                                    WebImage(url: meal.imageURL) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                                    } placeholder: {
+                                        Image(systemName: "photo.fill")
+                                            .font(.system(size: 60))
+                                    }
+                                    .frame(width: 100, height: 100)
                                 }
-                                .frame(width: 100, height: 100)
+                                .padding()
                             }
-                            .padding()
                         }
+                    }
+                    .navigationDestination(for: Meal.self) { meal in
+                        MealDetailsView(model: MealDetailsModel(meal: meal,
+                                                                apiClient: .live))
                     }
                 }
             }

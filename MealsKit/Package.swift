@@ -10,6 +10,7 @@ let package = Package(
     ],
     products: [
         .library(name: "MealsList", targets: ["MealsList"]),
+        .library(name: "MealDetails", targets: ["MealDetails"]),
         .library(name: "MealsApi", targets: ["MealsApi"]),
         .library(name: "MealsApiLive", targets: ["MealsApiLive"]),
     ],
@@ -19,6 +20,7 @@ let package = Package(
     targets: [
         .target(name: "MealsApi"),
         .target(name: "MealsApiLive", dependencies: ["MealsApi"]),
-        .target(name: "MealsList", dependencies: ["MealsApi", "SDWebImageSwiftUI"]),
+        .target(name: "MealsList", dependencies: ["MealsApi", "MealsApiLive", "MealDetails", "SDWebImageSwiftUI"]),
+        .target(name: "MealDetails", dependencies: ["MealsApi", "SDWebImageSwiftUI"]),
     ]
 )
