@@ -76,15 +76,20 @@ public struct MealDetailsView: View {
         }
     }
 
+    @ViewBuilder
     var watchOnYoutubeButton: some View {
-        Button(action: {model.onWatchOnYouTubeButtonTapped()}) {
-            HStack {
-                Image(systemName: "play.circle")
-                    .foregroundStyle(.red)
-                    .font(.title2)
+        if model.isLoading {
+            placeholderText
+        } else {
+            Button(action: { model.onWatchOnYouTubeButtonTapped() }) {
+                HStack {
+                    Image(systemName: "play.circle")
+                        .foregroundStyle(.red)
+                        .font(.title2)
 
-                Text("Watch on YouTube")
-                    .foregroundStyle(.red)
+                    Text("Watch on YouTube")
+                        .foregroundStyle(.red)
+                }
             }
         }
     }
@@ -137,7 +142,6 @@ public struct MealDetailsView: View {
                 image.resizable()
                     .aspectRatio(contentMode: .fit)
                     .scaledToFill()
-                    .clipShape(RoundedRectangle(cornerRadius: 6))
             } placeholder: {
                 Image(systemName: "photo.fill")
                     .font(.system(size: 60))
