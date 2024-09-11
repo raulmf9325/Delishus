@@ -30,7 +30,9 @@ public struct MealsListView: View {
                               onRetryButtonTapped: model.onRetryButtonTapped)
                 } else {
                     List {
-                        ForEach(model.desserts) { meal in
+                        SearchTextField(searchText: $model.searchFieldText, placeholderText: "Search dessert")
+
+                        ForEach(model.filteredDesserts) { meal in
                             NavigationLink(value: meal) {
                                 HStack {
                                     Text(meal.name)

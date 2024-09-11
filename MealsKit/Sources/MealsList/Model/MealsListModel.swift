@@ -20,7 +20,21 @@ public class MealsListModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: String?
 
+    @Published var searchFieldText = "" {
+        didSet {
+            debounceSearchText()
+        }
+    }
+
+    var filteredDesserts: [Meal] {
+        desserts.filter {
+            query.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(query)
+        }
+    }
+    
+    @Published private var query = ""
     private let apiClient: MealsApi
+    private var debounceTask: Task<Void, Error>?
 
     func onRetryButtonTapped() {
         getDesserts()
@@ -39,6 +53,19 @@ public class MealsListModel: ObservableObject {
             } catch {
                 isLoading = false
                 self.error = error.localizedDescription
+            }
+        }
+    }
+
+    private func debounceSearchText() {
+        debounceTask?.cancel()
+
+        debounceTask = Task(priority: .userInitiated) {
+            try await ContinuousClock().sleep(for: .milliseconds(500))
+            if !Task.isCancelled {
+                await MainActor.run {
+                    query = self.searchFieldText
+                }
             }
         }
     }
