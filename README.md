@@ -7,3 +7,7 @@
 * TextField search is debounced using Swift Concurrency tasks. 
 * MVVM architecture with SwiftUI Observable Object.
 * Hyper-modularized codebase, with each screen being its own module.
+
+
+# Preview
+![](preview.gif)
