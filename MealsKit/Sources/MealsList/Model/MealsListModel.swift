@@ -12,11 +12,13 @@ import SwiftUI
 @MainActor
 @Observable
 public class MealsListModel {
-    public init(apiClient: MealsApi) {
+    public init(category: MealCategory, apiClient: MealsApi) {
+        self.category = category
         self.apiClient = apiClient
-        getDesserts()
+        getMeals()
     }
 
+    let category: MealCategory
     private(set) var desserts = [Meal]()
     private(set) var isLoading = false
     private(set) var error: String?
@@ -33,7 +35,7 @@ public class MealsListModel {
         }
     }
 
-    var filteredDesserts: [Meal] {
+    var filteredMeals: [Meal] {
         desserts
             .filter { query.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(query) }
             .sorted {
@@ -51,17 +53,17 @@ public class MealsListModel {
     private var debounceTask: Task<Void, Error>?
 
     func onRetryButtonTapped() {
-        getDesserts()
+        getMeals()
     }
 
-    private func getDesserts() {
+    private func getMeals() {
         error = nil
         isLoading = true
 
         Task { @MainActor in
             do {
                 self.desserts = try await apiClient
-                    .getDesserts()
+                    .getMeals(category.name)
                 isLoading = false
             } catch {
                 isLoading = false

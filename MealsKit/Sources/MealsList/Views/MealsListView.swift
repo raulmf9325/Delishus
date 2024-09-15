@@ -21,7 +21,6 @@ public struct MealsListView: View {
     @Bindable var model: MealsListModel
 
     public var body: some View {
-        NavigationStack {
             Group {
                 if model.isLoading {
                     ListLoadingView()
@@ -35,7 +34,7 @@ public struct MealsListView: View {
                             filtersMenu
                         }
 
-                        ForEach(model.filteredDesserts) { meal in
+                        ForEach(model.filteredMeals) { meal in
                             NavigationLink(value: meal) {
                                 HStack {
                                     Text(meal.name)
@@ -53,8 +52,7 @@ public struct MealsListView: View {
                     }
                 }
             }
-            .navigationTitle("Desserts")
-        }
+            .navigationTitle(model.category.name)
     }
     
     var filtersMenu: some View {
@@ -87,5 +85,6 @@ public struct MealsListView: View {
 }
 
 #Preview {
-    MealsListView(model: MealsListModel(apiClient: .test))
+    MealsListView(model: MealsListModel(category: [MealCategory].mock[0],
+                                        apiClient: .test))
 }

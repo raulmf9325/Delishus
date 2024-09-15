@@ -6,6 +6,7 @@
 //
 
 import MealsApi
+import MealsList
 import MealsUI
 import SDWebImageSwiftUI
 import SwiftUI
@@ -40,12 +41,14 @@ public struct CategoryListView: View {
                         }
                     }
                     .navigationDestination(for: MealCategory.self) { category in
-                        
+                        MealsListView(model: MealsListModel(category: category,
+                                                            apiClient: .live))
                     }
                 }
             }
             .navigationTitle("Meals")
         }
+        .tint(Color.primary)
     }
     
     func thumbnailImage(category: MealCategory) -> some View {

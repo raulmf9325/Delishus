@@ -14,6 +14,7 @@
 		0649F6F92C8E55A8008159BA /* MealsApi in Frameworks */ = {isa = PBXBuildFile; productRef = 0649F6F82C8E55A8008159BA /* MealsApi */; };
 		0649F6FB2C8E55A8008159BA /* MealsApiLive in Frameworks */ = {isa = PBXBuildFile; productRef = 0649F6FA2C8E55A8008159BA /* MealsApiLive */; };
 		06F6DB292C8FAA90006E6E24 /* MealDetails in Frameworks */ = {isa = PBXBuildFile; productRef = 06F6DB282C8FAA90006E6E24 /* MealDetails */; };
+		4FFCC4302C9753F0008A451A /* CategoryList in Frameworks */ = {isa = PBXBuildFile; productRef = 4FFCC42F2C9753F0008A451A /* CategoryList */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 				06F6DB292C8FAA90006E6E24 /* MealDetails in Frameworks */,
 				0649F6F92C8E55A8008159BA /* MealsApi in Frameworks */,
 				0649F6FB2C8E55A8008159BA /* MealsApiLive in Frameworks */,
+				4FFCC4302C9753F0008A451A /* CategoryList in Frameworks */,
 				0649F6F72C8E4619008159BA /* MealsList in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,6 +105,7 @@
 				0649F6F82C8E55A8008159BA /* MealsApi */,
 				0649F6FA2C8E55A8008159BA /* MealsApiLive */,
 				06F6DB282C8FAA90006E6E24 /* MealDetails */,
+				4FFCC42F2C9753F0008A451A /* CategoryList */,
 			);
 			productName = meals;
 			productReference = 06262D492C8E3DC100E75DA4 /* Desserts.app */;
@@ -383,6 +386,10 @@
 		06F6DB282C8FAA90006E6E24 /* MealDetails */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MealDetails;
+		};
+		4FFCC42F2C9753F0008A451A /* CategoryList */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CategoryList;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
