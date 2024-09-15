@@ -18,7 +18,7 @@ public struct MealsListView: View {
         self.model = model
     }
 
-    @ObservedObject var model: MealsListModel
+    @Bindable var model: MealsListModel
 
     public var body: some View {
         NavigationStack {

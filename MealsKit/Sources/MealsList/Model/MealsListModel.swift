@@ -10,17 +10,18 @@ import Foundation
 import SwiftUI
 
 @MainActor
-public class MealsListModel: ObservableObject {
+@Observable
+public class MealsListModel {
     public init(apiClient: MealsApi) {
         self.apiClient = apiClient
         getDesserts()
     }
 
-    @Published var desserts = [Meal]()
-    @Published var isLoading = false
-    @Published var error: String?
+    private(set) var desserts = [Meal]()
+    private(set) var isLoading = false
+    private(set) var error: String?
 
-    @Published var searchFieldText = "" {
+    var searchFieldText = "" {
         didSet {
             debounceSearchText()
         }
@@ -32,7 +33,7 @@ public class MealsListModel: ObservableObject {
         }
     }
     
-    @Published private var query = ""
+    private var query = ""
     private let apiClient: MealsApi
     private var debounceTask: Task<Void, Error>?
 
