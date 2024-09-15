@@ -23,45 +23,26 @@ public struct MealDetailsView: View {
             ErrorView(errorMessage: error,
                       onRetryButtonTapped: model.onRetryButtonTapped)
         } else {
-            ZStack(alignment: .topLeading) {
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 20) {
-                        image
-                        VStack(alignment: .leading, spacing: 20) {
-                            title
-                            ingredients
-                            watchOnYoutubeButton
-                            instructions
-                        }
-                        .padding(.horizontal)
-                        Spacer()
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 20) {
+                    image
+                    VStack(alignment: .leading, spacing: 20) {
+                        title
+                        ingredients
+                        watchOnYoutubeButton
+                        instructions
                     }
+                    .padding(.horizontal)
+                    Spacer()
                 }
-                .ignoresSafeArea()
-
-                backButton
-                    .padding(.horizontal, 25)
             }
-            .toolbar(.hidden)
-            .navigationBarBackButtonHidden()
+            .ignoresSafeArea()
             .sheet(item: $model.sheet) { sheet in
                 switch sheet {
                 case let .webView(stringURL):
                     WatchOnYouTubeView(stringURL: stringURL)
                 }
             }
-        }
-    }
-
-    var backButton: some View {
-        Button(action: { dismiss() }) {
-            Image(systemName: "chevron.left")
-                .foregroundStyle(.white)
-                .padding(8)
-                .background(
-                    Circle()
-                        .fill(Color.black.opacity(0.5))
-                )
         }
     }
 
