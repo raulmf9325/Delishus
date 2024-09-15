@@ -33,7 +33,7 @@ public struct CategoryListView: View {
                                 HStack {
                                     Text(category.name)
                                     Spacer()
-                                    thumbnailImage(category: category)
+                                    ThumbnalImageView(url: category.imageURL)
                                         .padding(.leading)
                                 }
                                 .padding()
@@ -49,19 +49,6 @@ public struct CategoryListView: View {
             .navigationTitle("Meals")
         }
         .tint(Color.primary)
-    }
-    
-    func thumbnailImage(category: MealCategory) -> some View {
-        WebImage(url: category.imageURL) { image in
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-        } placeholder: {
-            Image(systemName: "photo.circle.fill")
-                .font(.system(size: 90))
-        }
-        .frame(width: 100, height: 100)
-        .clipShape(Circle())
     }
 }
 

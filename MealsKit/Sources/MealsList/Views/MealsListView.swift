@@ -39,7 +39,7 @@ public struct MealsListView: View {
                                 HStack {
                                     Text(meal.name)
                                     Spacer()
-                                    thumbnailImage(meal: meal)
+                                    ThumbnalImageView(url: meal.imageURL)
                                         .padding(.leading)
                                 }
                                 .padding()
@@ -57,30 +57,32 @@ public struct MealsListView: View {
     
     var filtersMenu: some View {
         Menu {
-            Button(action: { model.sortBy = .alphabeticallyAscending }) {
-                Text("Alphabetically: A - Z")
+            Menu {
+                Button(action: { model.sortBy = .alphabeticallyAscending }) {
+                    HStack {
+                        Text("A - Z")
+                        if model.sortBy == .alphabeticallyAscending {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+                Button(action: { model.sortBy = .alphabeticallyDescending }) {
+                    HStack {
+                        Text("Z - A")
+                        if model.sortBy == .alphabeticallyDescending {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            } label: {
+                Text("Sort By")
             }
-            Button(action: { model.sortBy = .alphabeticallyDescending }) {
-                Text("Alphabetically: Z - A")
-            }
+            .buttonStyle(.plain)
         } label: {
             Image(systemName: "line.3.horizontal.decrease.circle.fill")
                 .font(.title2)
         }
         .buttonStyle(.plain)
-    }
-
-    func thumbnailImage(meal: Meal) -> some View {
-        WebImage(url: meal.imageURL) { image in
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-        } placeholder: {
-            Image(systemName: "photo.circle.fill")
-                .font(.system(size: 90))
-        }
-        .frame(width: 100, height: 100)
-        .clipShape(Circle())
     }
 }
 
