@@ -30,7 +30,10 @@ public struct MealsListView: View {
                               onRetryButtonTapped: model.onRetryButtonTapped)
                 } else {
                     List {
-                        SearchTextField(searchText: $model.searchFieldText, placeholderText: "Search dessert")
+                        HStack {
+                            SearchTextField(searchText: $model.searchFieldText, placeholderText: "Search dessert")
+                            filtersMenu
+                        }
 
                         ForEach(model.filteredDesserts) { meal in
                             NavigationLink(value: meal) {
@@ -52,6 +55,21 @@ public struct MealsListView: View {
             }
             .navigationTitle("Desserts")
         }
+    }
+    
+    var filtersMenu: some View {
+        Menu {
+            Button(action: { model.sortBy = .alphabeticallyAscending }) {
+                Text("Alphabetically: A - Z")
+            }
+            Button(action: { model.sortBy = .alphabeticallyDescending }) {
+                Text("Alphabetically: Z - A")
+            }
+        } label: {
+            Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                .font(.title2)
+        }
+        .buttonStyle(.plain)
     }
 
     func thumbnailImage(meal: Meal) -> some View {

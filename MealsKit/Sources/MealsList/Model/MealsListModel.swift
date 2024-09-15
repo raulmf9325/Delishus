@@ -20,6 +20,12 @@ public class MealsListModel {
     private(set) var desserts = [Meal]()
     private(set) var isLoading = false
     private(set) var error: String?
+    
+    enum SortBy {
+        case alphabeticallyAscending
+        case alphabeticallyDescending
+    }
+    var sortBy: SortBy = .alphabeticallyAscending
 
     var searchFieldText = "" {
         didSet {
@@ -28,9 +34,16 @@ public class MealsListModel {
     }
 
     var filteredDesserts: [Meal] {
-        desserts.filter {
-            query.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(query)
-        }
+        desserts
+            .filter { query.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(query) }
+            .sorted {
+                switch sortBy {
+                case .alphabeticallyAscending:
+                    return $0.name < $1.name
+                case .alphabeticallyDescending:
+                    return $0.name > $1.name
+                }
+            }
     }
     
     private var query = ""
@@ -49,7 +62,6 @@ public class MealsListModel {
             do {
                 self.desserts = try await apiClient
                     .getDesserts()
-                    .sorted(by: { $0.name < $1.name })
                 isLoading = false
             } catch {
                 isLoading = false
