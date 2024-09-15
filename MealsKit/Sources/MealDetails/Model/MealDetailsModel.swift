@@ -52,8 +52,20 @@ public class MealDetailsModel: ObservableObject {
 
         Task { @MainActor in
             do {
-                self.mealDetails = try await apiClient
-                    .getDetails(meal.id)
+                let clock = ContinuousClock()
+                var details: MealDetails?
+                
+                let duration = try await clock.measure {
+                    details = try await apiClient.getDetails(meal.id)
+                }
+
+                if duration < .milliseconds(100) {
+                    self.mealDetails = details
+                } else {
+                    try await clock.sleep(for: .milliseconds(300))
+                    self.mealDetails = details
+                }
+                
                 isLoading = false
             } catch {
                 isLoading = false
