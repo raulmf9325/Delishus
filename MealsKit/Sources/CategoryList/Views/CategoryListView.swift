@@ -27,23 +27,62 @@ public struct CategoryListView: View {
                     ErrorView(errorMessage: error,
                               onRetryButtonTapped: model.onRetryButtonTapped)
                 } else {
-                    List {
-                        ForEach(model.categories) { category in
-                            NavigationLink(value: category) {
-                                HStack {
-                                    Text(category.name)
-                                    Spacer()
-                                    ThumbnalImageView(url: category.imageURL)
-                                        .padding(.leading)
+                        ScrollView {
+                            Section {
+                                LazyVStack {
+                                    ForEach(model.categories) { category in
+                                        VStack {
+                                            HStack {
+                                                Button(action: {
+                                                    withAnimation(.linear(duration: 0.2)) {
+                                                        model.onExpandCategoryButtonTapped(category)
+                                                    }
+                                                }) {
+                                                    Text("+")
+                                                        .font(.title3)
+                                                }
+                                                .padding(.trailing)
+                                                
+                                                NavigationLink(value: category) {
+                                                    HStack {
+                                                        Text(category.name)
+                                                        Spacer()
+                                                        ThumbnalImageView(url: category.imageURL)
+                                                            .padding(.trailing, 14)
+                                                        Image(systemName: "chevron.right")
+                                                            .font(.system(size: 13))
+                                                            .bold()
+                                                            .foregroundStyle(Color(.tertiaryLabel))
+                                                    }
+                                                }
+                                            }
+                                            .padding()
+                                            
+                                            if model.isExpanded(category) {
+                                                Text(category.description)
+                                                    .lineLimit(5)
+                                                    .padding([.horizontal, .bottom])
+                                            }
+                                            
+                                            Divider()
+                                                .padding([.leading])
+                                        }
+                                        .padding([.leading])
+                                    }
                                 }
-                                .padding()
                             }
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(.secondarySystemBackground))
+                            )
+                            .padding(.horizontal)
                         }
-                    }
-                    .navigationDestination(for: MealCategory.self) { category in
-                        MealsListView(model: MealsListModel(category: category,
-                                                            apiClient: .live))
-                    }
+                        .padding(.bottom, 30)
+                        .ignoresSafeArea(edges: [.bottom])
+                        .navigationDestination(for: MealCategory.self) { category in
+                            MealsListView(model: MealsListModel(category: category,
+                                                                apiClient: .live))
+                        }
                 }
             }
             .navigationTitle("Meals")

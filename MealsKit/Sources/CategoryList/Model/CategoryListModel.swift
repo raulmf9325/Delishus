@@ -16,11 +16,12 @@ public class CategoryListModel {
         getCategories()
     }
     
-    var categories = [MealCategory]()
-    
-    private let apiClient: MealsApi
+    var categories = [MealCategory]()    
     private(set) var isLoading = false
     private(set) var error: String?
+    
+    private let apiClient: MealsApi
+    private var expandedCategories: Set<MealCategory> = []
     
     private func getCategories() {
         error = nil
@@ -35,6 +36,18 @@ public class CategoryListModel {
                 isLoading = false
                 self.error = error.localizedDescription
             }
+        }
+    }
+    
+    func isExpanded(_ category: MealCategory) -> Bool {
+        expandedCategories.contains(category)
+    }
+    
+    func onExpandCategoryButtonTapped(_ category: MealCategory) {
+        if expandedCategories.contains(category) {
+            expandedCategories.remove(category)
+        } else {
+            expandedCategories.insert(category)
         }
     }
     
