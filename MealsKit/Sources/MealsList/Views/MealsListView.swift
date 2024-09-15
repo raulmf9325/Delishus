@@ -24,7 +24,7 @@ public struct MealsListView: View {
         NavigationStack {
             Group {
                 if model.isLoading {
-                    MealsListLoadingView()
+                    ListLoadingView()
                 } else if let error = model.error {
                     ErrorView(errorMessage: error,
                               onRetryButtonTapped: model.onRetryButtonTapped)

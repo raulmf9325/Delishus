@@ -9,11 +9,24 @@ import Foundation
 import MealsApi
 
 public extension MealsApi {
-    static let live = Self(getDesserts: fetchDesserts, 
+    static let live = Self(getCategories: getAllMealCategories,
+                           getDesserts: getAllDesserts,
                            getDetails: getMealDetails)
 }
 
-private func fetchDesserts() async throws -> [Meal] {
+private func getAllMealCategories() async throws -> [MealCategory] {
+    let urlRequest = try makeURLRequest(appending: "categories.php")
+    let (data, response) = try await URLSession.shared.data(for: urlRequest)
+    
+    guard let httpResponse = response as? HTTPURLResponse,
+          httpResponse.statusCode == 200, !data.isEmpty else {
+        throw URLError(.badServerResponse)
+    }
+
+    return try JSONDecoder().decode(MealCategoryResponse.self, from: data).categories
+}
+
+private func getAllDesserts() async throws -> [Meal] {
     let urlRequest = try makeURLRequest(appending: "filter.php?c=Dessert")
     let (data, response) = try await URLSession.shared.data(for: urlRequest)
     
