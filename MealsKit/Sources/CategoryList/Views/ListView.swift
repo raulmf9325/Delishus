@@ -85,7 +85,7 @@ struct ListView: View {
         .padding(.bottom, 30)
         .ignoresSafeArea(edges: [.bottom])
         .navigationDestination(for: MealCategory.self) { category in
-            MealsListView(model: MealsListModel(category: category,
+            MealsListView(model: MealsListModel(listBy: .category(category),
                                                 apiClient: .live))
         }
     }

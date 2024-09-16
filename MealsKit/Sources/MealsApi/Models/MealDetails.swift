@@ -88,3 +88,11 @@ public struct MealDetails: Decodable {
 public struct MealDetailsResponse: Decodable {
     public let meals: [MealDetails]
 }
+
+public extension Array where Element == Meal {
+    init(from mealDetails: [MealDetails]) {
+        self = mealDetails.map {
+            Meal(name: $0.name, id: $0.id, thumbnailImageURL: $0.thumbnailImageURL)
+        }
+    }
+}

@@ -29,9 +29,11 @@ public struct MealsListView: View {
                               onRetryButtonTapped: model.onRetryButtonTapped)
                 } else {
                     List {
-                        HStack {
-                            SearchTextField(searchText: $model.searchFieldText, placeholderText: "Search dessert")
-                            filtersMenu
+                        if !model.searchTextFieldHidden {
+                            HStack {
+                                SearchTextField(searchText: $model.searchFieldText, placeholderText: "Search dessert")
+                                filtersMenu
+                            }
                         }
 
                         ForEach(model.filteredMeals) { meal in
@@ -52,7 +54,7 @@ public struct MealsListView: View {
                     }
                 }
             }
-            .navigationTitle(model.category.name)
+            .navigationTitle(model.navigationTitle)
     }
     
     var filtersMenu: some View {
@@ -87,6 +89,6 @@ public struct MealsListView: View {
 }
 
 #Preview {
-    MealsListView(model: MealsListModel(category: [MealCategory].mock[0],
+    MealsListView(model: MealsListModel(listBy: .category([MealCategory].mock[0]),
                                         apiClient: .test))
 }

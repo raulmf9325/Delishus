@@ -5,6 +5,7 @@
 //  Created by Raul Mena on 9/16/24.
 //
 
+import MealsList
 import MealsUI
 import SwiftUI
 
@@ -24,15 +25,12 @@ struct EditingView: View {
                         .fill(Color(.secondarySystemBackground))
                 )
                 
-                Button("Cancel") {
-                    withAnimation {
-                        model.isEditing.toggle()
-                    }
-                }
+                Button("Cancel", action: model.onCancelSearchButtonTapped) 
             }
             .padding(.horizontal)
             
-            Spacer()
+            MealsListView(model: MealsListModel(listBy: .searchResult(model.mealsSearchResult),
+                                                apiClient: .live))
         }
     }
 }

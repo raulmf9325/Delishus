@@ -18,18 +18,23 @@ public class CategoryListModel {
     
     var categories = [MealCategory]()
     var isEditing = false
-    var mealsSearchResult = [MealDetails]()
+    var mealsSearchResult = [Meal]()
     private(set) var isLoading = false
     private(set) var error: String?
     
+    private var oldSearchFieldText = ""
     var searchFieldText = "" {
+        willSet {
+            oldSearchFieldText = searchFieldText
+        }
         didSet {
-            searchMeal()
+            debounceSearchText()
         }
     }
     
     private let apiClient: MealsApi
     private var expandedCategories: Set<MealCategory> = []
+    private var debounceTask: Task<Void, Error>?
         
     func isExpanded(_ category: MealCategory) -> Bool {
         expandedCategories.contains(category)
@@ -40,6 +45,13 @@ public class CategoryListModel {
             expandedCategories.remove(category)
         } else {
             expandedCategories.insert(category)
+        }
+    }
+    
+    func onCancelSearchButtonTapped() {
+        searchFieldText = ""
+        withAnimation {
+            isEditing = false
         }
     }
     
@@ -63,16 +75,45 @@ public class CategoryListModel {
     }
     
     private func searchMeal() {
-        error = nil
-        isLoading = true
-        
+        guard !searchFieldText.isEmpty else {
+            self.mealsSearchResult = []
+            return
+        }
+                
         Task { @MainActor in
             do {
-                self.mealsSearchResult = try await apiClient.searchMeal(searchFieldText)
+                error = nil
+                isLoading = true
+                var mealDetails: [MealDetails]?
+                
+                let clock = ContinuousClock()
+                let duration = try await clock.measure {
+                    mealDetails = try await apiClient.searchMeal(searchFieldText)
+                }
+                
+                if duration < .milliseconds(100) {
+                    self.mealsSearchResult = [Meal](from: mealDetails ?? [])
+                } else {
+                    try await clock.sleep(for: .milliseconds(300))
+                    self.mealsSearchResult = [Meal](from: mealDetails ?? [])
+                }
+
                 isLoading = false
             } catch {
                 isLoading = false
-                self.error = error.localizedDescription
+                self.mealsSearchResult = []
+            }
+        }
+    }
+    
+    private func debounceSearchText() {
+        guard oldSearchFieldText != searchFieldText else { return }
+        debounceTask?.cancel()
+
+        debounceTask = Task(priority: .userInitiated) {
+            try await ContinuousClock().sleep(for: .seconds(1))
+            if !Task.isCancelled {
+                searchMeal()
             }
         }
     }
