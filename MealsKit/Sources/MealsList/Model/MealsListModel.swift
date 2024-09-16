@@ -19,7 +19,7 @@ public class MealsListModel {
     }
 
     let category: MealCategory
-    private(set) var desserts = [Meal]()
+    private(set) var meals = [Meal]()
     private(set) var isLoading = false
     private(set) var error: String?
     
@@ -36,7 +36,7 @@ public class MealsListModel {
     }
 
     var filteredMeals: [Meal] {
-        desserts
+        meals
             .filter { query.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(query) }
             .sorted {
                 switch sortBy {
@@ -62,8 +62,7 @@ public class MealsListModel {
 
         Task { @MainActor in
             do {
-                self.desserts = try await apiClient
-                    .getMeals(category.name)
+                self.meals = try await apiClient.getMeals(category.name)
                 isLoading = false
             } catch {
                 isLoading = false

@@ -11,7 +11,8 @@ import MealsApi
 public extension MealsApi {
     static let live = Self(getCategories: getAllMealCategories,
                            getMeals: getAllMeals,
-                           getDetails: getMealDetails)
+                           getDetails: getMealDetails,
+                           searchMeal:  searchMealWithText)
 }
 
 private func getAllMealCategories() async throws -> [MealCategory] {
@@ -52,6 +53,18 @@ private func getMealDetails(mealId: String) async throws -> MealDetails {
     }
 
     return mealDetails
+}
+
+private func searchMealWithText(_ text: String) async throws -> [MealDetails] {
+    let urlRequest = try makeURLRequest(appending: "search.php?s=\(text)")
+    let (data, response) = try await URLSession.shared.data(for: urlRequest)
+    
+    guard let httpResponse = response as? HTTPURLResponse,
+          httpResponse.statusCode == 200, !data.isEmpty else {
+        throw URLError(.badServerResponse)
+    }
+    
+    return try JSONDecoder().decode(MealDetailsResponse.self, from: data).meals
 }
 
 private func makeURLRequest(appending query: String) throws -> URLRequest {

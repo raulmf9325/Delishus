@@ -31,6 +31,7 @@ struct EditingView: View {
                 }
             }
             .padding(.horizontal)
+            
             Spacer()
         }
     }

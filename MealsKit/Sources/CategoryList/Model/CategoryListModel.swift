@@ -18,29 +18,19 @@ public class CategoryListModel {
     
     var categories = [MealCategory]()
     var isEditing = false
+    var mealsSearchResult = [MealDetails]()
     private(set) var isLoading = false
     private(set) var error: String?
-    var searchFieldText = ""
     
-    private let apiClient: MealsApi
-    private var expandedCategories: Set<MealCategory> = []
-    
-    private func getCategories() {
-        error = nil
-        isLoading = true
-
-        Task { @MainActor in
-            do {
-                self.categories = try await apiClient
-                    .getCategories()
-                isLoading = false
-            } catch {
-                isLoading = false
-                self.error = error.localizedDescription
-            }
+    var searchFieldText = "" {
+        didSet {
+            searchMeal()
         }
     }
     
+    private let apiClient: MealsApi
+    private var expandedCategories: Set<MealCategory> = []
+        
     func isExpanded(_ category: MealCategory) -> Bool {
         expandedCategories.contains(category)
     }
@@ -55,5 +45,35 @@ public class CategoryListModel {
     
     func onRetryButtonTapped() {
         getCategories()
+    }
+    
+    private func getCategories() {
+        error = nil
+        isLoading = true
+
+        Task { @MainActor in
+            do {
+                self.categories = try await apiClient.getCategories()
+                isLoading = false
+            } catch {
+                isLoading = false
+                self.error = error.localizedDescription
+            }
+        }
+    }
+    
+    private func searchMeal() {
+        error = nil
+        isLoading = true
+        
+        Task { @MainActor in
+            do {
+                self.mealsSearchResult = try await apiClient.searchMeal(searchFieldText)
+                isLoading = false
+            } catch {
+                isLoading = false
+                self.error = error.localizedDescription
+            }
+        }
     }
 }
