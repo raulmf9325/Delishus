@@ -7,11 +7,17 @@
 
 import SwiftUI
 
-struct SearchTextField: View {
+public struct SearchTextField: View {
+    public init(searchText: Binding<String>,
+                placeholderText: String) {
+        self._searchText = searchText
+        self.placeholderText = placeholderText
+    }
+    
     @Binding var searchText: String
     let placeholderText: String
-
-    var body: some View {
+    
+    public var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .resizable()
@@ -23,7 +29,7 @@ struct SearchTextField: View {
                 .font(.body)
                 .cornerRadius(8)
                 .autocorrectionDisabled()
-
+            
             if !searchText.isEmpty {
                 Button(action: { searchText = "" }) {
                     Image(systemName: "xmark.circle.fill")
@@ -36,9 +42,6 @@ struct SearchTextField: View {
         }
         .padding(8)
         .cornerRadius(4)
-        .onAppear {
-
-        }
     }
 }
 

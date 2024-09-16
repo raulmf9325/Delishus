@@ -79,7 +79,9 @@ public class MealsListModel {
             try await ContinuousClock().sleep(for: .milliseconds(500))
             if !Task.isCancelled {
                 await MainActor.run {
-                    query = self.searchFieldText
+                    withAnimation {
+                        query = self.searchFieldText
+                    }
                 }
             }
         }

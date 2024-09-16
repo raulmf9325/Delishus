@@ -16,9 +16,11 @@ public class CategoryListModel {
         getCategories()
     }
     
-    var categories = [MealCategory]()    
+    var categories = [MealCategory]()
+    var isEditing = false
     private(set) var isLoading = false
     private(set) var error: String?
+    var searchFieldText = ""
     
     private let apiClient: MealsApi
     private var expandedCategories: Set<MealCategory> = []
