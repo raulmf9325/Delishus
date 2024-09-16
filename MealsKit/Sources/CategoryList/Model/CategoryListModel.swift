@@ -111,7 +111,7 @@ public class CategoryListModel {
         debounceTask?.cancel()
 
         debounceTask = Task(priority: .userInitiated) {
-            try await ContinuousClock().sleep(for: .seconds(1))
+            try await ContinuousClock().sleep(for: .milliseconds(600))
             if !Task.isCancelled {
                 searchMeal()
             }
