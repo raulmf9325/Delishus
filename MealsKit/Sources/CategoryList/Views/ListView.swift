@@ -11,6 +11,7 @@ import MealsUI
 import SwiftUI
 
 struct ListView: View {
+    let categories: [MealCategory]
     @Bindable var model: CategoryListModel
     let namespace: Namespace.ID
     
@@ -30,12 +31,12 @@ struct ListView: View {
                 .contentShape(Rectangle())
                 .onTapGesture {
                     withAnimation {
-                        model.isEditing.toggle()
+                        model.onSearchMealButtonTapped()
                     }
                 }
                 
                 LazyVStack {
-                    ForEach(model.categories) { category in
+                    ForEach(categories) { category in
                         VStack {
                             HStack {
                                 Button(action: {
@@ -92,6 +93,7 @@ struct ListView: View {
 }
 
 #Preview {
-    ListView(model: CategoryListModel(apiClient: .test),
-                namespace: Namespace().wrappedValue)
+    ListView(categories: [MealCategory].mock,
+             model: CategoryListModel(apiClient: .test),
+             namespace: Namespace().wrappedValue)
 }

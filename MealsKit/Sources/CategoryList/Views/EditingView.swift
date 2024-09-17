@@ -5,11 +5,14 @@
 //  Created by Raul Mena on 9/16/24.
 //
 
+import MealsApi
 import MealsList
 import MealsUI
 import SwiftUI
 
 struct EditingView: View {
+    let searchResult: [Meal]
+    let loading: Bool
     @Bindable var model: CategoryListModel
     let namespace: Namespace.ID
     
@@ -29,13 +32,19 @@ struct EditingView: View {
             }
             .padding(.horizontal)
             
-            MealsListView(model: MealsListModel(listBy: .searchResult(model.mealsSearchResult),
-                                                apiClient: .live))
+            if loading {
+                ListLoadingView()
+            } else {
+                MealsListView(model: MealsListModel(listBy: .searchResult(searchResult),
+                                                    apiClient: .live))
+            }
         }
     }
 }
 
 #Preview {
-    EditingView(model: CategoryListModel(apiClient: .test),
+    EditingView(searchResult: [Meal].mock,
+                loading: false,
+                model: CategoryListModel(apiClient: .test),
                 namespace: Namespace().wrappedValue)
 }

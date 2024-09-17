@@ -21,15 +21,18 @@ public struct CategoryListView: View {
     public var body: some View {
         NavigationStack {
             Group {
-                if model.isLoading {
+                switch model.state {
+                case .loading:
                     ListLoadingView()
-                } else if let error = model.error {
-                    ErrorView(errorMessage: error,
-                              onRetryButtonTapped: model.onRetryButtonTapped)
-                } else if model.isEditing {
-                    EditingView(model: model, namespace: namespace)
-                } else {
-                    ListView(model: model, namespace: namespace)
+                case let .loaded(categories):
+                    ListView(categories: categories, model: model, namespace: namespace)
+                case let .searching(searchResult, _, loading):
+                    EditingView(searchResult: searchResult,
+                                loading: loading,
+                                model: model,
+                                namespace: namespace)
+                case let .error(error):
+                    ErrorView(errorMessage: error, onRetryButtonTapped: model.onRetryButtonTapped)
                 }
             }
             .navigationTitle("Meals")

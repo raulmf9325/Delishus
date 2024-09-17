@@ -16,11 +16,13 @@ public class CategoryListModel {
         getCategories()
     }
     
-    var categories = [MealCategory]()
-    var isEditing = false
-    var mealsSearchResult = [Meal]()
-    private(set) var isLoading = false
-    private(set) var error: String?
+    enum State {
+        case loading
+        case loaded(categories: [MealCategory])
+        case searching(searchResult: [Meal], categories: [MealCategory], loading: Bool)
+        case error(String)
+    }
+    var state: State = .loading
     
     private var oldSearchFieldText = ""
     var searchFieldText = "" {
@@ -48,10 +50,16 @@ public class CategoryListModel {
         }
     }
     
+    func onSearchMealButtonTapped() {
+        guard case let .loaded(categories) = state else { return }
+        state = .searching(searchResult: [], categories: categories, loading: false)
+    }
+    
     func onCancelSearchButtonTapped() {
+        guard case let .searching(_, categories, _) = state else { return }
         searchFieldText = ""
         withAnimation {
-            isEditing = false
+            state = .loaded(categories: categories)
         }
     }
     
@@ -60,30 +68,28 @@ public class CategoryListModel {
     }
     
     private func getCategories() {
-        error = nil
-        isLoading = true
+        state = .loading
 
         Task { @MainActor in
             do {
-                self.categories = try await apiClient.getCategories()
-                isLoading = false
+                self.state = .loaded(categories: try await apiClient.getCategories())
             } catch {
-                isLoading = false
-                self.error = error.localizedDescription
+                self.state = .error(error.localizedDescription)
             }
         }
     }
     
     private func searchMeal() {
+        guard case let .searching(_, categories, _) = state else { return }
+        
         guard !searchFieldText.isEmpty else {
-            self.mealsSearchResult = []
+            self.state = .searching(searchResult: [], categories: categories, loading: false)
             return
         }
                 
         Task { @MainActor in
             do {
-                error = nil
-                isLoading = true
+                self.state = .searching(searchResult: [], categories: categories, loading: true)
                 var mealDetails: [MealDetails]?
                 
                 let clock = ContinuousClock()
@@ -92,16 +98,13 @@ public class CategoryListModel {
                 }
                 
                 if duration < .milliseconds(100) {
-                    self.mealsSearchResult = [Meal](from: mealDetails ?? [])
+                    self.state = .searching(searchResult: [Meal](from: mealDetails ?? []), categories: categories, loading: false)
                 } else {
                     try await clock.sleep(for: .milliseconds(300))
-                    self.mealsSearchResult = [Meal](from: mealDetails ?? [])
+                    self.state = .searching(searchResult: [Meal](from: mealDetails ?? []), categories: categories, loading: false)
                 }
-
-                isLoading = false
             } catch {
-                isLoading = false
-                self.mealsSearchResult = []
+                self.state = .searching(searchResult: [], categories: categories, loading: false)
             }
         }
     }
