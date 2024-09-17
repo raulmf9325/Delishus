@@ -10,17 +10,21 @@ import MealsApi
 import SwiftUI
 
 @MainActor
-public class MealDetailsModel: ObservableObject {
+@Observable
+public class MealDetailsModel {
     public init(meal: Meal, apiClient: MealsApi) {
         self.meal = meal
         self.apiClient = apiClient
         getDetails()
     }
 
-    @Published var mealDetails: MealDetails?
-    @Published var isLoading = false
-    @Published var error: String?
-
+    enum State {
+        case loading
+        case loaded(MealDetails)
+        case error(String)
+    }
+    var state: State = .loading
+    
     enum Sheet: Identifiable {
         case webView(String)
 
@@ -32,14 +36,14 @@ public class MealDetailsModel: ObservableObject {
         }
     }
     
-    @Published var sheet: Sheet?
+    var sheet: Sheet?
 
     private let meal: Meal
     private let apiClient: MealsApi
 
     func onWatchOnYouTubeButtonTapped() {
-        guard let stringURL = mealDetails?.youtubeURL else { return }
-        sheet = .webView(stringURL)
+        guard case .loaded(let mealDetails) = state, let url = mealDetails.youtubeURL else { return }
+        sheet = .webView(url)
     }
 
     func onRetryButtonTapped() {
@@ -47,8 +51,7 @@ public class MealDetailsModel: ObservableObject {
     }
 
     private func getDetails() {
-        error = nil
-        isLoading = true
+        state = .loading
 
         Task { @MainActor in
             do {
@@ -59,17 +62,16 @@ public class MealDetailsModel: ObservableObject {
                     details = try await apiClient.getDetails(meal.id)
                 }
 
-                if duration < .milliseconds(100) {
-                    self.mealDetails = details
-                } else {
-                    try await clock.sleep(for: .milliseconds(300))
-                    self.mealDetails = details
+                if let details {
+                    if duration < .milliseconds(100) {
+                        self.state = .loaded(details)
+                    } else {
+                        try await clock.sleep(for: .milliseconds(300))
+                        self.state = .loaded(details)
+                    }
                 }
-                
-                isLoading = false
             } catch {
-                isLoading = false
-                self.error = error.localizedDescription
+                self.state = .error(error.localizedDescription)
             }
         }
     }
