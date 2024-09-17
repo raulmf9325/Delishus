@@ -25,14 +25,18 @@ public class MealsListModel {
         case .category(let mealCategory):
             getMeals(category: mealCategory)
         case .searchResult(let meals):
-            self.meals = meals
+            self.state = .loaded(meals)
         }
     }
     
     let listBy: MealsListBy
-    private(set) var meals = [Meal]()
-    private(set) var isLoading = false
-    private(set) var error: String?
+    
+    enum State {
+        case loading
+        case loaded([Meal])
+        case error(String)
+    }
+    var state: State = .loading
     
     enum SortBy {
         case alphabeticallyAscending
@@ -47,7 +51,9 @@ public class MealsListModel {
     }
     
     var filteredMeals: [Meal] {
-        meals
+        guard case .loaded(let meals) = state else { return [] }
+        
+        return meals
             .filter { query.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(query) }
             .sorted {
                 switch sortBy {
@@ -87,16 +93,13 @@ public class MealsListModel {
     }
 
     private func getMeals(category: MealCategory) {
-        error = nil
-        isLoading = true
+        state = .loading
 
         Task { @MainActor in
             do {
-                self.meals = try await apiClient.getMeals(category.name)
-                isLoading = false
+                self.state = .loaded(try await apiClient.getMeals(category.name))
             } catch {
-                isLoading = false
-                self.error = error.localizedDescription
+                self.state = .error(error.localizedDescription)
             }
         }
     }

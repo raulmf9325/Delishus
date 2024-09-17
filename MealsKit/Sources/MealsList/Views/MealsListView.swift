@@ -22,12 +22,11 @@ public struct MealsListView: View {
 
     public var body: some View {
             Group {
-                if model.isLoading {
+                switch model.state {
+                case .loading:
                     ListLoadingView()
-                } else if let error = model.error {
-                    ErrorView(errorMessage: error,
-                              onRetryButtonTapped: model.onRetryButtonTapped)
-                } else {
+                    
+                case .loaded:
                     List {
                         if !model.searchTextFieldHidden {
                             HStack {
@@ -52,6 +51,9 @@ public struct MealsListView: View {
                         MealDetailsView(model: MealDetailsModel(meal: meal,
                                                                 apiClient: .live))
                     }
+                    
+                case let .error(error):
+                    ErrorView(errorMessage: error, onRetryButtonTapped: model.onRetryButtonTapped)
                 }
             }
             .navigationTitle(model.navigationTitle)
