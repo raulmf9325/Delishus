@@ -8,6 +8,12 @@
 import Foundation
 
 public struct Meal: Decodable, Identifiable, Hashable {
+    public init(name: String, id: String, thumbnailImageURL: String? = nil) {
+        self.name = name
+        self.id = id
+        self.thumbnailImageURL = thumbnailImageURL
+    }
+    
     public let name: String
     public let id: String
     public let thumbnailImageURL: String?

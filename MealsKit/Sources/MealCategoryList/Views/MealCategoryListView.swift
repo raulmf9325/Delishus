@@ -10,12 +10,12 @@ import MealsUI
 import SDWebImageSwiftUI
 import SwiftUI
 
-public struct CategoryListView: View {
-    public init(model: CategoryListModel) {
+public struct MealCategoryListView: View {
+    public init(model: MealCategoryListModel) {
         self.model = model
     }
     
-    @Bindable var model: CategoryListModel
+    @Bindable var model: MealCategoryListModel
     @Namespace private var namespace
     
     public var body: some View {
@@ -43,5 +43,5 @@ public struct CategoryListView: View {
 
 
 #Preview {
-    CategoryListView(model: CategoryListModel(apiClient: .test))
+    MealCategoryListView(model: MealCategoryListModel(apiClient: .test))
 }

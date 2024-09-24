@@ -10,9 +10,11 @@ let package = Package(
     ],
     products: [
         .library(name: "MealsList", targets: ["MealsList"]),
-        .library(name: "CategoryList", targets: ["CategoryList"]),
+        .library(name: "MealCategoryList", targets: ["MealCategoryList"]),
         .library(name: "MealDetails", targets: ["MealDetails"]),
         .library(name: "MealsApi", targets: ["MealsApi"]),
+        .library(name: "MealsRepo", targets: ["MealsRepo"]),
+        .library(name: "MealsRepoLive", targets: ["MealsRepoLive"]),
         .library(name: "MealsApiLive", targets: ["MealsApiLive"]),
     ],
     dependencies: [
@@ -21,8 +23,10 @@ let package = Package(
     targets: [
         .target(name: "MealsApi"),
         .target(name: "MealsApiLive", dependencies: ["MealsApi"]),
+        .target(name: "MealsRepo", dependencies: ["MealsApi"]),
+        .target(name: "MealsRepoLive", dependencies: ["MealsRepo"]),
         .target(name: "MealsList", dependencies: ["MealsUI", "MealsApi", "MealsApiLive", "MealDetails"]),
-        .target(name: "CategoryList", dependencies: ["MealsList"]),
+        .target(name: "MealCategoryList", dependencies: ["MealsList"]),
         .target(name: "MealDetails", dependencies: ["MealsUI", "MealsApi", "SDWebImageSwiftUI"]),
         .target(name: "MealsUI", dependencies: ["SDWebImageSwiftUI"]),
     ]

@@ -8,6 +8,13 @@
 import Foundation
 
 public struct MealCategory: Decodable, Identifiable, Hashable {
+    public init(id: String, name: String, description: String, thumbnailImageURL: String? = nil) {
+        self.id = id
+        self.name = name
+        self.description = description
+        self.thumbnailImageURL = thumbnailImageURL
+    }
+    
     public let id: String
     public let name: String
     public let description: String

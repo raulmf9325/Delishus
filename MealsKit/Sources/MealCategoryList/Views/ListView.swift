@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ListView: View {
     let categories: [MealCategory]
-    @Bindable var model: CategoryListModel
+    @Bindable var model: MealCategoryListModel
     let namespace: Namespace.ID
     
     var body: some View {
@@ -94,6 +94,6 @@ struct ListView: View {
 
 #Preview {
     ListView(categories: [MealCategory].mock,
-             model: CategoryListModel(apiClient: .test),
+             model: MealCategoryListModel(apiClient: .test),
              namespace: Namespace().wrappedValue)
 }

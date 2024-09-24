@@ -6,18 +6,18 @@
 //
 
 import MealsApiLive
-import CategoryList
+import MealCategoryList
 import SwiftUI
 
 @main
 struct MealsApp: App {
     var body: some Scene {
         WindowGroup {
-            CategoryListView(model: CategoryListModel(apiClient: .live))
+            MealCategoryListView(model: MealCategoryListModel(apiClient: .live))
         }
     }
 }
 
 #Preview {
-    CategoryListView(model: CategoryListModel(apiClient: .test))
+    MealCategoryListView(model: MealCategoryListModel(apiClient: .test))
 }

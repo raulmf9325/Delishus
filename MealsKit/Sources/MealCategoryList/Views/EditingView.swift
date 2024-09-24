@@ -13,7 +13,7 @@ import SwiftUI
 struct EditingView: View {
     let searchResult: [Meal]
     let loading: Bool
-    @Bindable var model: CategoryListModel
+    @Bindable var model: MealCategoryListModel
     let namespace: Namespace.ID
     
     var body: some View {
@@ -45,6 +45,6 @@ struct EditingView: View {
 #Preview {
     EditingView(searchResult: [Meal].mock,
                 loading: false,
-                model: CategoryListModel(apiClient: .test),
+                model: MealCategoryListModel(apiClient: .test),
                 namespace: Namespace().wrappedValue)
 }

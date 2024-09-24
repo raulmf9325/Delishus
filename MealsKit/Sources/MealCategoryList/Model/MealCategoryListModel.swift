@@ -10,7 +10,7 @@ import SwiftUI
 
 @MainActor
 @Observable
-public class CategoryListModel {
+public class MealCategoryListModel {
     public init(apiClient: MealsApi) {
         self.apiClient = apiClient
         getCategories()
