@@ -6,6 +6,7 @@
 //
 
 import MealsApi
+import MealsRepoLive
 import MealsList
 import MealsUI
 import SwiftUI
@@ -20,7 +21,7 @@ struct ListView: View {
         ScrollView {
             Section {
                 if let error {
-                    ErrorView(error: error, onRetryButtonTapped: model.onRetryButtonTapped)
+                    ErrorButton(error: error, onRetryButtonTapped: model.onRetryButtonTapped)
                 } else {
                     SearchMealTextField(model: model, namespace: namespace)
                 }
@@ -77,7 +78,8 @@ struct ListView: View {
         .ignoresSafeArea(edges: [.bottom])
         .navigationDestination(for: MealCategory.self) { category in
             MealsListView(model: MealsListModel(listBy: .category(category),
-                                                apiClient: .live))
+                                                apiClient: .live,
+                                                mealsRepo: .live))
         }
     }
 }
@@ -86,26 +88,6 @@ struct ListView: View {
     ListView(categories: [MealCategory].mock,
              model: MealCategoryListModel(apiClient: .test, mealsRepo: .test),
              namespace: Namespace().wrappedValue)
-}
-
-private struct ErrorView: View {
-    let error: String
-    let onRetryButtonTapped: () -> Void
-
-    var body: some View {
-        VStack(spacing: 15) {
-            Text("Oops! Something went wrong")
-
-            Button(action: onRetryButtonTapped) {
-                HStack {
-                    Text("Retry")
-                    Image(systemName: "arrow.counterclockwise")
-                }
-            }
-        }
-        .tint(.red)
-        .padding(.top)
-    }
 }
 
 private struct SearchMealTextField: View {

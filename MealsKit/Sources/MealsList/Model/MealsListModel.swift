@@ -6,6 +6,7 @@
 //
 
 import MealsApi
+import MealsRepo
 import Foundation
 import SwiftUI
 
@@ -17,16 +18,13 @@ public enum MealsListBy {
 @MainActor
 @Observable
 public class MealsListModel {
-    public init(listBy: MealsListBy, apiClient: MealsApi) {
+    public init(listBy: MealsListBy,
+                apiClient: MealsApi,
+                mealsRepo: MealsRepo
+    ) {
         self.apiClient = apiClient
+        self.mealsRepo = mealsRepo
         self.listBy = listBy
-        
-        switch listBy {
-        case .category(let mealCategory):
-            getMeals(category: mealCategory)
-        case .searchResult(let meals):
-            self.state = .loaded(meals)
-        }
     }
     
     let listBy: MealsListBy
@@ -34,7 +32,7 @@ public class MealsListModel {
     enum State {
         case loading
         case loaded([Meal])
-        case error(String)
+        case error(String, [Meal])
     }
     var state: State = .loading
     
@@ -51,8 +49,17 @@ public class MealsListModel {
     }
     
     var filteredMeals: [Meal] {
-        guard case .loaded(let meals) = state else { return [] }
-        
+        let meals: [Meal]
+
+        switch state {
+        case .loading:
+            return []
+        case .loaded(let loadedMeals):
+            meals = loadedMeals
+        case .error(_, let persistedMeals):
+            meals = persistedMeals
+        }
+
         return meals
             .filter { query.isEmpty ? true : $0.name.localizedCaseInsensitiveContains(query) }
             .sorted {
@@ -85,7 +92,17 @@ public class MealsListModel {
     
     private var query = ""
     private let apiClient: MealsApi
+    private let mealsRepo: MealsRepo
     private var debounceTask: Task<Void, Error>?
+
+    func onViewAppeared() {
+        switch listBy {
+        case .category(let mealCategory):
+            getMeals(category: mealCategory)
+        case .searchResult(let meals):
+            self.state = .loaded(meals)
+        }
+    }
 
     func onRetryButtonTapped() {
         guard case let .category(category) = listBy else { return }
@@ -97,10 +114,30 @@ public class MealsListModel {
 
         Task { @MainActor in
             do {
-                self.state = .loaded(try await apiClient.getMeals(category.name))
+                let meals = try await apiClient.getMeals(category.name)
+                self.state = .loaded(meals)
+                await saveMeals(meals)
             } catch {
-                self.state = .error(error.localizedDescription)
+                let persistedMeals = await fetchMeals()
+                self.state = .error(error.localizedDescription, persistedMeals)
             }
+        }
+    }
+
+    private func fetchMeals() async -> [Meal] {
+        do {
+            return try await mealsRepo.fetchMeals()
+        } catch {
+            print("Error fetching meals: \(error.localizedDescription)")
+            return []
+        }
+    }
+
+    private func saveMeals(_ meals: [Meal]) async {
+        do {
+            try await mealsRepo.saveMeals(meals)
+        } catch {
+            print("Error persisting meals: \(error.localizedDescription)")
         }
     }
 

@@ -6,6 +6,7 @@
 //
 
 import MealsApi
+import MealsRepoLive
 import MealsList
 import MealsUI
 import SwiftUI
@@ -36,7 +37,8 @@ struct EditingView: View {
                 ListLoadingView()
             } else {
                 MealsListView(model: MealsListModel(listBy: .searchResult(searchResult),
-                                                    apiClient: .live))
+                                                    apiClient: .live,
+                                                    mealsRepo: .live))
             }
         }
     }
