@@ -14,17 +14,17 @@ public struct MealCategory: Decodable, Identifiable, Hashable {
         self.description = description
         self.thumbnailImageURL = thumbnailImageURL
     }
-    
+
     public let id: String
     public let name: String
     public let description: String
     public let thumbnailImageURL: String?
-    
+
     public var imageURL: URL? {
         guard let stringURL = thumbnailImageURL else { return nil }
         return URL(string: stringURL)
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "idCategory"
         case name = "strCategory"
@@ -37,6 +37,12 @@ public struct MealCategoryResponse: Decodable {
     public let categories: [MealCategory]
 }
 
+public extension MealCategory {
+    static let mock = MealCategory(id: "13",
+                                   name: "Breakfast",
+                                   description: "Breakfast is the first meal of a day. The word in English refers to breaking the fasting period of the previous night. There is a strong likelihood for one or more \"typical\", or \"traditional\", breakfast menus to exist in most places, but their composition varies widely from place to place, and has varied over time, so that globally a very wide range of preparations and ingredients are now associated with breakfast.",
+                                   thumbnailImageURL: "https://www.themealdb.com/images/category/breakfast.png")
+}
 
 public extension Array where Element == MealCategory {
     static var mock: [MealCategory] {

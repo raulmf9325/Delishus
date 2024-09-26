@@ -6,21 +6,22 @@
 //
 
 import MealsApi
+import MealsRepo
 import SwiftUI
 
 @MainActor
 @Observable
 public class MealCategoryListModel {
-    public init(apiClient: MealsApi) {
+    public init(apiClient: MealsApi, mealsRepo: MealsRepo) {
         self.apiClient = apiClient
-        getCategories()
+        self.mealsRepo = mealsRepo
     }
     
     enum State {
         case loading
         case loaded(categories: [MealCategory])
         case searching(searchResult: [Meal], categories: [MealCategory], loading: Bool)
-        case error(String)
+        case error(String, [MealCategory])
     }
     var state: State = .loading
     
@@ -35,9 +36,16 @@ public class MealCategoryListModel {
     }
     
     private let apiClient: MealsApi
+    private let mealsRepo: MealsRepo
     private var expandedCategories: Set<MealCategory> = []
     private var debounceTask: Task<Void, Error>?
-        
+
+    func onViewAppeared() {
+        if case .loading = state {
+            getCategories()
+        }
+    }
+
     func isExpanded(_ category: MealCategory) -> Bool {
         expandedCategories.contains(category)
     }
@@ -72,13 +80,33 @@ public class MealCategoryListModel {
 
         Task { @MainActor in
             do {
-                self.state = .loaded(categories: try await apiClient.getCategories())
+                let categories = try await apiClient.getCategories()
+                self.state = .loaded(categories: categories)
+                await saveCategories(categories)
             } catch {
-                self.state = .error(error.localizedDescription)
+                let persistedCategories = await fetchCategories()
+                self.state = .error(error.localizedDescription, persistedCategories)
             }
         }
     }
-    
+
+    private func fetchCategories() async -> [MealCategory] {
+        do {
+            return try await mealsRepo.fetchMealCategories()
+        } catch {
+            print("Error fetching meal categories: \(error.localizedDescription)")
+            return []
+        }
+    }
+
+    private func saveCategories(_ categories: [MealCategory]) async {
+        do {
+            try await self.mealsRepo.saveMealCategories(categories)
+        } catch {
+            print("Error persisting meal categories: \(error.localizedDescription)")
+        }
+    }
+
     private func searchMeal() {
         guard case let .searching(_, categories, _) = state else { return }
         

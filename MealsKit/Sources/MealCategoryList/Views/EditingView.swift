@@ -45,6 +45,6 @@ struct EditingView: View {
 #Preview {
     EditingView(searchResult: [Meal].mock,
                 loading: false,
-                model: MealCategoryListModel(apiClient: .test),
+                model: MealCategoryListModel(apiClient: .test, mealsRepo: .test),
                 namespace: Namespace().wrappedValue)
 }

@@ -7,17 +7,18 @@
 
 import MealsApiLive
 import MealCategoryList
+import MealsRepoLive
 import SwiftUI
 
 @main
 struct MealsApp: App {
     var body: some Scene {
         WindowGroup {
-            MealCategoryListView(model: MealCategoryListModel(apiClient: .live))
+            MealCategoryListView(model: MealCategoryListModel(apiClient: .live, mealsRepo: .live))
         }
     }
 }
 
 #Preview {
-    MealCategoryListView(model: MealCategoryListModel(apiClient: .test))
+    MealCategoryListView(model: MealCategoryListModel(apiClient: .test, mealsRepo: .test))
 }

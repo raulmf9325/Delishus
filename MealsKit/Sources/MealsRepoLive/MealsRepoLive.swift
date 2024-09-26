@@ -12,20 +12,23 @@ import SwiftData
 public extension MealsRepo {
     static let live: MealsRepo = {
         let repo = MealsRepoLive()
-        return MealsRepo(fetchMealCategories: repo.fetchMealCategories,
-                         saveMealCategories: repo.saveMealCategories,
-                         fetchMeals: repo.fetchMeals,
-                         saveMeals: repo.saveMeals)
+        return MealsRepo(fetchMealCategories: { try repo.fetchMealCategories() },
+                         saveMealCategories: { try repo.saveMealCategories($0) },
+                         fetchMeals: { try repo.fetchMeals() },
+                         saveMeals: { try repo.saveMeals($0) })
     }()
 }
 
-class MealsRepoLive {
+@ModelActor
+actor MealsRepoLive {
     init() {
         let container = try! ModelContainer(for: MealModel.self, MealCategoryModel.self)
-        self.context = ModelContext(container)
+        let modelContext = ModelContext(container)
+        self.modelExecutor = DefaultSerialModelExecutor(modelContext: modelContext)
+        self.modelContainer = container
     }
 
-    private let context: ModelContext
+    private var context: ModelContext { modelExecutor.modelContext }
 
     func fetchMealCategories() throws -> [MealCategory] {
         try context.fetch(FetchDescriptor<MealCategoryModel>()).map(\.mealCategory)
@@ -37,6 +40,8 @@ class MealsRepoLive {
         models.forEach {
             context.insert($0)
         }
+
+        try context.save()
     }
 
     func fetchMeals() throws -> [Meal] {
@@ -49,6 +54,8 @@ class MealsRepoLive {
         models.forEach {
             context.insert($0)
         }
+
+        try context.save()
     }
 }
 

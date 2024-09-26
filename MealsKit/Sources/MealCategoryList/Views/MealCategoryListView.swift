@@ -31,17 +31,20 @@ public struct MealCategoryListView: View {
                                 loading: loading,
                                 model: model,
                                 namespace: namespace)
-                case let .error(error):
-                    ErrorView(errorMessage: error, onRetryButtonTapped: model.onRetryButtonTapped)
+                case let .error(error, persistedCategories):
+                    ListView(categories: persistedCategories, model: model, namespace: namespace, error: error)
                 }
             }
             .navigationTitle("Meals")
         }
         .tint(Color.primary)
+        .onAppear {
+            model.onViewAppeared()
+        }
     }
 }
 
-
 #Preview {
-    MealCategoryListView(model: MealCategoryListModel(apiClient: .test))
+    MealCategoryListView(model: MealCategoryListModel(apiClient: .test,
+                                                      mealsRepo: .test))
 }

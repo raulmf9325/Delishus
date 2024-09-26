@@ -12,29 +12,19 @@ import SwiftUI
 
 struct ListView: View {
     let categories: [MealCategory]
-    @Bindable var model: MealCategoryListModel
+    let model: MealCategoryListModel
     let namespace: Namespace.ID
-    
+    var error: String?
+
     var body: some View {
         ScrollView {
             Section {
-                VStack {
-                    SearchTextField(searchText: $model.searchFieldText,
-                                    placeholderText: "Search a meal")
-                    .disabled(true)
-                    .matchedGeometryEffect(id: "searchTextField", in: namespace)
-                    Divider()
+                if let error {
+                    ErrorView(error: error, onRetryButtonTapped: model.onRetryButtonTapped)
+                } else {
+                    SearchMealTextField(model: model, namespace: namespace)
                 }
-                .padding(.top)
-                .padding(.leading)
-                .padding(.leading)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    withAnimation {
-                        model.onSearchMealButtonTapped()
-                    }
-                }
-                
+
                 LazyVStack {
                     ForEach(categories) { category in
                         VStack {
@@ -94,6 +84,50 @@ struct ListView: View {
 
 #Preview {
     ListView(categories: [MealCategory].mock,
-             model: MealCategoryListModel(apiClient: .test),
+             model: MealCategoryListModel(apiClient: .test, mealsRepo: .test),
              namespace: Namespace().wrappedValue)
+}
+
+private struct ErrorView: View {
+    let error: String
+    let onRetryButtonTapped: () -> Void
+
+    var body: some View {
+        VStack(spacing: 15) {
+            Text("Oops! Something went wrong")
+
+            Button(action: onRetryButtonTapped) {
+                HStack {
+                    Text("Retry")
+                    Image(systemName: "arrow.counterclockwise")
+                }
+            }
+        }
+        .tint(.red)
+        .padding(.top)
+    }
+}
+
+private struct SearchMealTextField: View {
+    @Bindable var model: MealCategoryListModel
+    let namespace: Namespace.ID
+
+    var body: some View {
+        VStack {
+            SearchTextField(searchText: $model.searchFieldText,
+                            placeholderText: "Search a meal")
+            .disabled(true)
+            .matchedGeometryEffect(id: "searchTextField", in: namespace)
+            Divider()
+        }
+        .padding(.top)
+        .padding(.leading)
+        .padding(.leading)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            withAnimation {
+                model.onSearchMealButtonTapped()
+            }
+        }
+    }
 }
