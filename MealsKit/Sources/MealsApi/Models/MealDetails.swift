@@ -12,6 +12,7 @@ public struct MealDetails: Decodable {
                   id: String, 
                   area: String,
                   instructions: String,
+                  categoryName: String,
                   thumbnailImageURL: String? = nil,
                   youtubeURL: String? = nil,
                   ingredientAmounts: [String : String]) {
@@ -19,6 +20,7 @@ public struct MealDetails: Decodable {
         self.id = id
         self.area = area
         self.instructions = instructions
+        self.categoryName = categoryName
         self.thumbnailImageURL = thumbnailImageURL
         self.youtubeURL = youtubeURL
         self.ingredientAmounts = ingredientAmounts
@@ -30,6 +32,7 @@ public struct MealDetails: Decodable {
         self.id = try container.decode(String.self, forKey: .id)
         self.area = try container.decode(String.self, forKey: .area)
         self.instructions = try container.decode(String.self, forKey: .instructions)
+        self.categoryName = try container.decode(String.self, forKey: .categoryName)
         self.thumbnailImageURL = try container.decodeIfPresent(String.self, forKey: .thumbnailImageURL)
         self.youtubeURL = try container.decodeIfPresent(String.self, forKey: .youtubeURL)
 
@@ -58,6 +61,7 @@ public struct MealDetails: Decodable {
     public let id: String
     public let area: String
     public let instructions: String
+    public let categoryName: String
     public let thumbnailImageURL: String?
     public let youtubeURL: String?
     public let ingredientAmounts: [String: String]
@@ -66,6 +70,7 @@ public struct MealDetails: Decodable {
         case name = "strMeal"
         case id = "idMeal"
         case area = "strArea"
+        case categoryName = "strCategory"
         case instructions = "strInstructions"
         case thumbnailImageURL = "strMealThumb"
         case youtubeURL = "strYoutube"
@@ -92,7 +97,7 @@ public struct MealDetailsResponse: Decodable {
 public extension Array where Element == Meal {
     init(from mealDetails: [MealDetails]) {
         self = mealDetails.map {
-            Meal(name: $0.name, id: $0.id, thumbnailImageURL: $0.thumbnailImageURL)
+            Meal(id: $0.id, name: $0.name, categoryName: $0.categoryName, thumbnailImageURL: $0.thumbnailImageURL)
         }
     }
 }

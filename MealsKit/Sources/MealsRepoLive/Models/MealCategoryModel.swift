@@ -23,6 +23,9 @@ class MealCategoryModel {
     var thumbnailImageURL: String?
 
     var mealCategory: MealCategory {
-        MealCategory(id: id, name: name, description: descriptionText, thumbnailImageURL: thumbnailImageURL)
+        MealCategory(id: id,
+                     name: name,
+                     description: descriptionText,
+                     thumbnailImageURL: thumbnailImageURL)
     }
 }

@@ -92,7 +92,7 @@ public class MealCategoryListModel {
 
     private func fetchCategories() async -> [MealCategory] {
         do {
-            return try await mealsRepo.fetchMealCategories()
+            return try await mealsRepo.fetchAllMealCategories()
         } catch {
             print("Error fetching meal categories: \(error.localizedDescription)")
             return []

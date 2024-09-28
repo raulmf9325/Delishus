@@ -112,30 +112,31 @@ public class MealsListModel {
     private func getMeals(category: MealCategory) {
         state = .loading
 
-        Task { @MainActor in
+        Task {
             do {
                 let meals = try await apiClient.getMeals(category.name)
                 self.state = .loaded(meals)
-                await saveMeals(meals)
+                await saveMeals(category: category, meals: meals)
             } catch {
-                let persistedMeals = await fetchMeals()
+                let persistedMeals = await fetchMeals(category.name)
                 self.state = .error(error.localizedDescription, persistedMeals)
             }
         }
     }
 
-    private func fetchMeals() async -> [Meal] {
+    private func fetchMeals(_ categoryName: String) async -> [Meal] {
         do {
-            return try await mealsRepo.fetchMeals()
+            return try await mealsRepo.fetchMeals(categoryName)
         } catch {
             print("Error fetching meals: \(error.localizedDescription)")
             return []
         }
     }
 
-    private func saveMeals(_ meals: [Meal]) async {
+    private func saveMeals(category: MealCategory, meals: [Meal]) async {
         do {
-            try await mealsRepo.saveMeals(meals)
+            let updatedMeals = meals.map { Meal(id: $0.id, name: $0.name, categoryName: category.name, thumbnailImageURL: $0.thumbnailImageURL) }
+            try await mealsRepo.saveMeals(updatedMeals)
         } catch {
             print("Error persisting meals: \(error.localizedDescription)")
         }

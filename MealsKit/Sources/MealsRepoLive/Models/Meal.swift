@@ -14,13 +14,18 @@ class MealModel {
         self.id = meal.id
         self.name = meal.name
         self.thumbnailImageURL = meal.thumbnailImageURL
+        self.categoryName = meal.categoryName
     }
 
     @Attribute(.unique) var id: String
     var name: String
     var thumbnailImageURL: String?
+    var categoryName: String?
 
     var meal: Meal {
-        Meal(name: name, id: id, thumbnailImageURL: thumbnailImageURL)
+        Meal(id: id,
+             name: name,
+             categoryName: categoryName,
+             thumbnailImageURL: thumbnailImageURL)
     }
 }

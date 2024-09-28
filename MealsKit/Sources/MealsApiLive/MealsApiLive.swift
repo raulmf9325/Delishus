@@ -10,7 +10,7 @@ import MealsApi
 
 public extension MealsApi {
     static let live = Self(getCategories: getAllMealCategories,
-                           getMeals: getAllMeals,
+                           getMeals: getMeals(category:),
                            getDetails: getMealDetails,
                            searchMeal:  searchMealWithText)
 }
@@ -27,7 +27,7 @@ private func getAllMealCategories() async throws -> [MealCategory] {
     return try JSONDecoder().decode(MealCategoryResponse.self, from: data).categories
 }
 
-private func getAllMeals(category: String) async throws -> [Meal] {
+private func getMeals(category: String) async throws -> [Meal] {
     let urlRequest = try makeURLRequest(appending: "filter.php?c=\(category)")
     let (data, response) = try await URLSession.shared.data(for: urlRequest)
     

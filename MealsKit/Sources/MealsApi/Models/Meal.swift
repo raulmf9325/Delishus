@@ -8,15 +8,21 @@
 import Foundation
 
 public struct Meal: Decodable, Identifiable, Hashable {
-    public init(name: String, id: String, thumbnailImageURL: String? = nil) {
-        self.name = name
+    public init(id: String,
+                name: String,
+                categoryName: String?,
+                thumbnailImageURL: String? = nil) {
         self.id = id
+        self.name = name
+        self.categoryName = categoryName
         self.thumbnailImageURL = thumbnailImageURL
     }
-    
-    public let name: String
+
     public let id: String
+    public let name: String
     public let thumbnailImageURL: String?
+    public var categoryName: String?
+
 
     public var imageURL: URL? {
         guard let stringURL = thumbnailImageURL else { return nil }
@@ -37,11 +43,13 @@ public struct MealsResponse: Decodable {
 public extension Array where Element == Meal {
     static var mock: [Meal] {
         [
-            Meal(name: "White chocolate creme brulee",
-                 id: "0",
+            Meal(id: "0",
+                 name: "White chocolate creme brulee",
+                 categoryName: "Dessert",
                  thumbnailImageURL: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg"),
-            Meal(name: "Walnut Roll Gužvara",
-                 id: "1",
+            Meal(id: "1",
+                 name: "Walnut Roll Gužvara",
+                 categoryName: "Dessert",
                  thumbnailImageURL: "https://www.themealdb.com/images/media/meals/u9l7k81628771647.jpg")
         ]
     }
@@ -52,6 +60,7 @@ public extension MealDetails {
                            id: "0",
                            area: "British",
                            instructions: "Heat oven to 190C/170C fan/gas 5. Tip the flour and sugar into a large bowl. Add the butter, then rub into the flour using your fingertips to make a light breadcrumb texture.",
+                           categoryName: "Dessert",
                            ingredientAmounts: ["Ice Cream" : "to serve",
                                                "Plain Flour": "120g"])
 }
