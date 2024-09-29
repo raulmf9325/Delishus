@@ -36,7 +36,7 @@ private func getMeals(category: String) async throws -> [Meal] {
         throw URLError(.badServerResponse)
     }
 
-    return try JSONDecoder().decode(MealsResponse.self, from: data).meals
+    return try JSONDecoder().decode(MealsResponse.self, from: data).meals.updatingCategory(category)
 }
 
 private func getMealDetails(mealId: String) async throws -> MealDetails {
@@ -79,3 +79,13 @@ private func makeURLRequest(appending query: String) throws -> URLRequest {
 }
 
 private let baseURL = "https://themealdb.com/api/json/v1/1/"
+
+private extension Array where Element == Meal {
+    func updatingCategory(_ categoryName: String) -> [Meal] {
+        self.map { Meal(id: $0.id,
+                        name: $0.name,
+                        categoryName: categoryName,
+                        isFavorite: $0.isFavorite,
+                        thumbnailImageURL: $0.thumbnailImageURL) }
+    }
+}

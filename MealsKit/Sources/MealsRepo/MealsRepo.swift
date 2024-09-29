@@ -26,10 +26,11 @@ public struct MealsRepo {
     }
     
     public var fetchAllMealCategories: () async throws -> [MealCategory]
-    public var saveMealCategories: ([MealCategory]) async throws -> Void
-    public var fetchMeals: (String) async throws -> [Meal]
-    public var saveMeals: ([Meal]) async throws -> Void
     public var fetchAllMeals: () async throws -> [Meal]
+    public var fetchMeals: (_ categoryName: String) async throws -> [Meal]
+
+    public var saveMealCategories: ([MealCategory]) async throws -> Void
+    public var saveMeals: ([Meal]) async throws -> Void
 }
 
 public extension MealsRepo {

@@ -37,6 +37,12 @@ struct ListView: View {
                             .padding(.leading)
                     }
                     .padding()
+                    .swipeActions {
+                        Button(action: { model.onFavoriteButtonTapped(meal) }) {
+                            Image(systemName: meal.isFavorite ? "heart" : "heart.fill")
+                        }
+                        .tint(meal.isFavorite ? Color.red : Color.green)
+                    }
                 }
             }
         }

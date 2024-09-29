@@ -34,6 +34,8 @@ public class MealsListModel {
         }
     }
 
+    // MARK: - Exposed Members
+
     let listBy: MealsListBy
     
     enum State {
@@ -96,11 +98,15 @@ public class MealsListModel {
             return "Meals"
         }
     }
-    
+
+    // MARK: - Private Members
+
     private var query = ""
     private let apiClient: MealsApi
     private let mealsRepo: MealsRepo
     private var debounceTask: Task<Void, Error>?
+
+    // MARK: - Exposed interface
 
     func onViewAppeared() {
         switch listBy {
@@ -116,6 +122,19 @@ public class MealsListModel {
         getMeals(category: category)
     }
 
+    func onFavoriteButtonTapped(_ meal: Meal) {
+        guard case var .loaded(meals) = state else { return }
+        meals = meals.map { $0.id == meal.id ? $0.updatingIsFavorite(!$0.isFavorite) : $0 }
+        state = .loaded(meals)
+
+        Task {
+            await saveMeals(meals)
+        }
+    }
+
+
+    // MARK: - Implementation Details
+
     private func getMeals(category: MealCategory) {
         state = .loading
 
@@ -123,7 +142,7 @@ public class MealsListModel {
             do {
                 let meals = try await apiClient.getMeals(category.name)
                 self.state = .loaded(meals)
-                await saveMeals(category: category, meals: meals)
+                await saveMeals(meals)
             } catch {
                 let persistedMeals = await fetchMeals(category.name)
                 self.state = .error(error.localizedDescription, persistedMeals)
@@ -140,10 +159,9 @@ public class MealsListModel {
         }
     }
 
-    private func saveMeals(category: MealCategory, meals: [Meal]) async {
+    private func saveMeals(_ meals: [Meal]) async {
         do {
-            let updatedMeals = meals.map { Meal(id: $0.id, name: $0.name, categoryName: category.name, thumbnailImageURL: $0.thumbnailImageURL) }
-            try await mealsRepo.saveMeals(updatedMeals)
+            try await mealsRepo.saveMeals(meals)
         } catch {
             print("Error persisting meals: \(error.localizedDescription)")
         }
@@ -162,5 +180,11 @@ public class MealsListModel {
                 }
             }
         }
+    }
+}
+
+private extension Meal {
+    func updatingIsFavorite(_ isFavorite: Bool) -> Meal {
+        Meal(id: id, name: name, categoryName: categoryName, isFavorite: isFavorite, thumbnailImageURL: thumbnailImageURL)
     }
 }
