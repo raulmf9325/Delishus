@@ -17,6 +17,8 @@ struct ListView: View {
     let namespace: Namespace.ID
     var error: String?
 
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
         ScrollView {
             Section {
@@ -70,7 +72,7 @@ struct ListView: View {
             }
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(.secondarySystemBackground))
+                    .fill(colorScheme == .light ? Color.white : Color(.secondarySystemBackground))
             )
             .padding(.horizontal)
         }
@@ -81,6 +83,9 @@ struct ListView: View {
                                                 apiClient: .live,
                                                 mealsRepo: .live))
         }
+        .background(
+            colorScheme == .light ?  RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)).ignoresSafeArea() : nil
+        )
     }
 }
 

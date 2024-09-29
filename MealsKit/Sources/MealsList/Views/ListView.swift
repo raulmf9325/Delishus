@@ -23,7 +23,7 @@ struct ListView: View {
 
             if !model.searchTextFieldHidden {
                 HStack {
-                    SearchTextField(searchText: $model.searchFieldText, placeholderText: "Search dessert")
+                    SearchTextField(searchText: $model.searchFieldText, placeholderText: "Search meal")
                     filtersMenu
                 }
             }

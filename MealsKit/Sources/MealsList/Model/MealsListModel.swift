@@ -25,8 +25,15 @@ public class MealsListModel {
         self.apiClient = apiClient
         self.mealsRepo = mealsRepo
         self.listBy = listBy
+
+        switch listBy {
+        case .category:
+            state = .loading
+        case let .searchResult(meals):
+            state = .loaded(meals)
+        }
     }
-    
+
     let listBy: MealsListBy
     
     enum State {
@@ -34,8 +41,8 @@ public class MealsListModel {
         case loaded([Meal])
         case error(String, [Meal])
     }
-    var state: State = .loading
-    
+    var state: State
+
     enum SortBy {
         case alphabeticallyAscending
         case alphabeticallyDescending
