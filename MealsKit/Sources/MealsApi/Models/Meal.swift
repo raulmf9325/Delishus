@@ -11,12 +11,10 @@ public struct Meal: Decodable, Identifiable, Hashable {
     public init(id: String,
                 name: String,
                 categoryName: String?,
-                isFavorite: Bool = false,
                 thumbnailImageURL: String? = nil) {
         self.id = id
         self.name = name
         self.categoryName = categoryName
-        self.isFavorite = isFavorite
         self.thumbnailImageURL = thumbnailImageURL
     }
 
@@ -24,8 +22,6 @@ public struct Meal: Decodable, Identifiable, Hashable {
     public let name: String
     public let thumbnailImageURL: String?
     public var categoryName: String?
-    public var isFavorite = false
-
 
     public var imageURL: URL? {
         guard let stringURL = thumbnailImageURL else { return nil }

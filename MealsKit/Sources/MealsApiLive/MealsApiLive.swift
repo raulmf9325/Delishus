@@ -85,7 +85,6 @@ private extension Array where Element == Meal {
         self.map { Meal(id: $0.id,
                         name: $0.name,
                         categoryName: categoryName,
-                        isFavorite: $0.isFavorite,
                         thumbnailImageURL: $0.thumbnailImageURL) }
     }
 }

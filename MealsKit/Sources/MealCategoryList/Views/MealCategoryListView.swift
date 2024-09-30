@@ -5,7 +5,7 @@
 //  Created by Raul Mena on 9/15/24.
 //
 
-
+import MealsRepo
 import MealsUI
 import SDWebImageSwiftUI
 import SwiftUI
@@ -46,5 +46,5 @@ public struct MealCategoryListView: View {
 
 #Preview {
     MealCategoryListView(model: MealCategoryListModel(apiClient: .test,
-                                                      mealsRepo: .test))
+                                                      mealsRepo: MealsRepoTest()))
 }

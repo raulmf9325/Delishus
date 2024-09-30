@@ -123,15 +123,18 @@ public class MealsListModel {
     }
 
     func onFavoriteButtonTapped(_ meal: Meal) {
-        guard case var .loaded(meals) = state else { return }
-        meals = meals.map { $0.id == meal.id ? $0.updatingIsFavorite(!$0.isFavorite) : $0 }
-        state = .loaded(meals)
-
         Task {
-            await saveMeals(meals)
+            if mealsRepo.favoriteMealsIds.contains(meal.id) {
+                try await mealsRepo.removeFavoriteMeals(ids: [meal.id])
+            } else {
+                try await mealsRepo.saveFavoriteMeals(ids: [meal.id])
+            }
         }
     }
 
+    func isFavorite(_ meal: Meal) -> Bool {
+        mealsRepo.favoriteMealsIds.contains(meal.id)
+    }
 
     // MARK: - Implementation Details
 
@@ -152,7 +155,7 @@ public class MealsListModel {
 
     private func fetchMeals(_ categoryName: String) async -> [Meal] {
         do {
-            return try await mealsRepo.fetchMeals(categoryName)
+            return try await mealsRepo.fetchMeals(categoryName: categoryName)
         } catch {
             print("Error fetching meals: \(error.localizedDescription)")
             return []
@@ -180,11 +183,5 @@ public class MealsListModel {
                 }
             }
         }
-    }
-}
-
-private extension Meal {
-    func updatingIsFavorite(_ isFavorite: Bool) -> Meal {
-        Meal(id: id, name: name, categoryName: categoryName, isFavorite: isFavorite, thumbnailImageURL: thumbnailImageURL)
     }
 }

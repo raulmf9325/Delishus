@@ -7,6 +7,7 @@
 
 import Foundation
 import MealsApi
+import MealsRepo
 import MealsUI
 import SDWebImageSwiftUI
 import SwiftUI
@@ -41,5 +42,5 @@ public struct MealsListView: View {
 #Preview {
     MealsListView(model: MealsListModel(listBy: .category([MealCategory].mock[0]),
                                         apiClient: .test,
-                                        mealsRepo: .test))
+                                        mealsRepo: MealsRepoTest()))
 }

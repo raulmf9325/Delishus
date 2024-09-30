@@ -12,31 +12,38 @@ public enum MealsRepoError: Error {
     case notFound
 }
 
-public struct MealsRepo {
-    public init(fetchAllMealCategories: @escaping () async throws -> [MealCategory],
-                saveMealCategories: @escaping ([MealCategory]) async throws -> Void,
-                fetchMeals: @escaping (String) async throws -> [Meal],
-                saveMeals: @escaping ([Meal]) async throws -> Void,
-                fetchAllMeals: @escaping () async throws -> [Meal]) {
-        self.fetchAllMealCategories = fetchAllMealCategories
-        self.saveMealCategories = saveMealCategories
-        self.fetchMeals = fetchMeals
-        self.saveMeals = saveMeals
-        self.fetchAllMeals = fetchAllMeals
-    }
-    
-    public var fetchAllMealCategories: () async throws -> [MealCategory]
-    public var fetchAllMeals: () async throws -> [Meal]
-    public var fetchMeals: (_ categoryName: String) async throws -> [Meal]
-
-    public var saveMealCategories: ([MealCategory]) async throws -> Void
-    public var saveMeals: ([Meal]) async throws -> Void
+public protocol MealsRepo {
+    var favoriteMealsIds: Set<String> { get }
+    func fetchAllMealCategories() async throws -> [MealCategory]
+    func fetchAllMeals() async throws -> [Meal]
+    func fetchMeals(categoryName: String) async throws -> [Meal]
+    func saveMealCategories(_ categories: [MealCategory]) async throws
+    func saveMeals(_ meals: [Meal]) async throws
+    func saveFavoriteMeals(ids: [String]) async throws
+    func removeFavoriteMeals(ids: [String]) async throws
 }
 
-public extension MealsRepo {
-    static let test = MealsRepo(fetchAllMealCategories: { [MealCategory].mock },
-                                saveMealCategories: { _ in },
-                                fetchMeals: { _ in [Meal].mock },
-                                saveMeals: { _ in },
-                                fetchAllMeals: { [Meal].mock })
+public struct MealsRepoTest: MealsRepo {
+    public init() {}
+
+    public var favoriteMealsIds: Set<String> { [] }
+
+    public func fetchAllMealCategories() async throws -> [MealCategory] {
+        [MealCategory].mock
+    }
+    
+    public func fetchAllMeals() async throws -> [Meal] {
+        [Meal].mock
+    }
+    
+    public func fetchMeals(categoryName: String) async throws -> [Meal] {
+        [Meal].mock
+    }
+    
+    public func saveMealCategories(_ categories: [MealCategory]) async throws {}
+    
+    public func saveMeals(_ meals: [Meal]) async throws {}
+
+    public func saveFavoriteMeals(ids: [String]) {}
+    public func removeFavoriteMeals(ids: [String]) {}
 }

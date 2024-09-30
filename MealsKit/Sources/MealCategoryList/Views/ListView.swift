@@ -6,6 +6,7 @@
 //
 
 import MealsApi
+import MealsRepo
 import MealsRepoLive
 import MealsList
 import MealsUI
@@ -81,7 +82,7 @@ struct ListView: View {
         .navigationDestination(for: MealCategory.self) { category in
             MealsListView(model: MealsListModel(listBy: .category(category),
                                                 apiClient: .live,
-                                                mealsRepo: .live))
+                                                mealsRepo: MealsRepoLive.shared))
         }
         .background(
             colorScheme == .light ?  RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)).ignoresSafeArea() : nil
@@ -91,7 +92,7 @@ struct ListView: View {
 
 #Preview {
     ListView(categories: [MealCategory].mock,
-             model: MealCategoryListModel(apiClient: .test, mealsRepo: .test),
+             model: MealCategoryListModel(apiClient: .test, mealsRepo: MealsRepoTest()),
              namespace: Namespace().wrappedValue)
 }
 

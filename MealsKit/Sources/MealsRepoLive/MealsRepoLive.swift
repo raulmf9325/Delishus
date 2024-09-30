@@ -10,21 +10,65 @@ import MealsApi
 import MealsRepo
 import SwiftData
 
-public extension MealsRepo {
-    static let live: MealsRepo = {
-        let repo = MealsRepoLive()
-        return MealsRepo(fetchAllMealCategories: { try repo.fetchAllMealCategories() },
-                         saveMealCategories: { try repo.saveMealCategories($0) },
-                         fetchMeals: { try repo.fetchMeals(categoryName: $0) },
-                         saveMeals: { try repo.saveMeals($0) },
-                         fetchAllMeals: { try repo.fetchAllMeals() })
-    }()
+@Observable
+public class MealsRepoLive: MealsRepo {
+    public static let shared = MealsRepoLive()
+    
+    private init() {
+        Task { @MainActor in
+            try await fetchFavoriteMeals()
+        }
+    }
+    
+    private let storage = MealsStorage()
+
+    public private(set) var favoriteMealsIds: Set<String> = []
+
+    public func fetchAllMealCategories() async throws -> [MealCategory] {
+        try await storage.fetchAllMealCategories()
+    }
+    
+    public func fetchAllMeals() async throws -> [Meal] {
+        return try await storage.fetchAllMeals()
+    }
+    
+    public func fetchMeals(categoryName: String) async throws -> [Meal] {
+        return try await storage.fetchMeals(categoryName: categoryName)
+    }
+    
+    public func saveMealCategories(_ categories: [MealCategory]) async throws {
+        try await storage.saveMealCategories(categories)
+    }
+    
+    public func saveMeals(_ meals: [Meal]) async throws {
+        try await storage.saveMeals(meals)
+    }
+
+    public func saveFavoriteMeals(ids: [String]) async throws {
+        favoriteMealsIds.formUnion(ids)
+
+        let favorites = ids.map(FavoriteMealModel.init)
+        try await storage.saveFavoriteMeals(favorites)
+    }
+
+    public func removeFavoriteMeals(ids: [String]) async throws {
+        favoriteMealsIds.subtract(ids)
+
+        let favorites = ids.map(FavoriteMealModel.init)
+        try await storage.removeFavoriteMeals(favorites)
+    }
+
+    func fetchFavoriteMeals() async throws {
+        self.favoriteMealsIds.formUnion(try await storage.fetchFavoriteMealsIds())
+    }
 }
 
 @ModelActor
-actor MealsRepoLive {
+actor MealsStorage {
     init() {
-        let container = try! ModelContainer(for: MealModel.self, MealCategoryModel.self)
+        let container = try! ModelContainer(for: MealModel.self,
+                                            MealCategoryModel.self,
+                                            FavoriteMealModel.self)
         let modelContext = ModelContext(container)
         self.modelExecutor = DefaultSerialModelExecutor(modelContext: modelContext)
         self.modelContainer = container
@@ -66,6 +110,24 @@ actor MealsRepoLive {
         }
 
         try context.save()
+    }
+
+    func saveFavoriteMeals(_ models: [FavoriteMealModel]) throws {
+        models.forEach {
+            context.insert($0)
+        }
+        try context.save()
+    }
+
+    func removeFavoriteMeals(_ models: [FavoriteMealModel]) throws {
+        models.forEach {
+            context.delete($0)
+        }
+        try context.save()
+    }
+
+    func fetchFavoriteMealsIds() throws -> [String] {
+        try context.fetch(FetchDescriptor<FavoriteMealModel>()).map(\.id)
     }
 }
 

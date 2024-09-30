@@ -8,6 +8,7 @@
 import MealsApi
 import MealsApiLive
 import MealDetails
+import MealsRepo
 import MealsUI
 import SwiftUI
 
@@ -39,9 +40,9 @@ struct ListView: View {
                     .padding()
                     .swipeActions {
                         Button(action: { model.onFavoriteButtonTapped(meal) }) {
-                            Image(systemName: meal.isFavorite ? "heart" : "heart.fill")
+                            Image(systemName: model.isFavorite(meal) ? "heart" : "heart.fill")
                         }
-                        .tint(meal.isFavorite ? Color.red : Color.green)
+                        .tint(model.isFavorite(meal) ? Color.red : Color.green)
                     }
                 }
             }
@@ -86,5 +87,5 @@ struct ListView: View {
 #Preview {
     ListView(model: MealsListModel(listBy: .category([MealCategory].mock[0]),
                                    apiClient: .test,
-                                   mealsRepo: .test))
+                                   mealsRepo: MealsRepoTest()))
 }

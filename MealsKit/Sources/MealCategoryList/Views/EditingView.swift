@@ -6,6 +6,7 @@
 //
 
 import MealsApi
+import MealsRepo
 import MealsRepoLive
 import MealsList
 import MealsUI
@@ -38,7 +39,7 @@ struct EditingView: View {
             } else {
                 MealsListView(model: MealsListModel(listBy: .searchResult(searchResult),
                                                     apiClient: .live,
-                                                    mealsRepo: .live))
+                                                    mealsRepo: MealsRepoLive.shared))
             }
         }
     }
@@ -47,6 +48,6 @@ struct EditingView: View {
 #Preview {
     EditingView(searchResult: [Meal].mock,
                 loading: false,
-                model: MealCategoryListModel(apiClient: .test, mealsRepo: .test),
+                model: MealCategoryListModel(apiClient: .test, mealsRepo: MealsRepoTest()),
                 namespace: Namespace().wrappedValue)
 }
