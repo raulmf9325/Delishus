@@ -122,7 +122,7 @@ public struct MealDetailsView: View {
 
 #Preview {
     NavigationStack {
-        MealDetailsView(model: MealDetailsModel(meal: [Meal].mock[0],
+        MealDetailsView(model: MealDetailsModel(meal: .mock,
                                                 apiClient: .test))
     }
 }

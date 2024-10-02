@@ -30,21 +30,9 @@ struct ListView: View {
             }
 
             ForEach(model.filteredMeals) { meal in
-                NavigationLink(value: meal) {
-                    HStack {
-                        Text(meal.name)
-                        Spacer()
-                        ThumbnalImageView(url: meal.imageURL)
-                            .padding(.leading)
-                    }
-                    .padding()
-                    .swipeActions {
-                        Button(action: { model.onFavoriteButtonTapped(meal) }) {
-                            Image(systemName: model.isFavorite(meal) ? "heart" : "heart.fill")
-                        }
-                        .tint(model.isFavorite(meal) ? Color.red : Color.green)
-                    }
-                }
+                MealsListRowView(meal: meal,
+                                 isFavorite: model.isFavorite(meal),
+                                 onFavoriteButtonTapped: { model.onFavoriteButtonTapped(meal) })
             }
         }
         .navigationDestination(for: Meal.self) { meal in

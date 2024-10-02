@@ -12,6 +12,7 @@ let package = Package(
         .library(name: "MealsList", targets: ["MealsList"]),
         .library(name: "MealCategoryList", targets: ["MealCategoryList"]),
         .library(name: "MealDetails", targets: ["MealDetails"]),
+        .library(name: "FavoriteMealsList", targets: ["FavoriteMealsList"]),
         .library(name: "MealsApi", targets: ["MealsApi"]),
         .library(name: "MealsRepo", targets: ["MealsRepo"]),
         .library(name: "MealsRepoLive", targets: ["MealsRepoLive"]),
@@ -28,6 +29,7 @@ let package = Package(
         .target(name: "MealsList", dependencies: ["MealsUI", "MealsApi", "MealsApiLive", "MealDetails"]),
         .target(name: "MealCategoryList", dependencies: ["MealsList", "MealsRepo"]),
         .target(name: "MealDetails", dependencies: ["MealsUI", "MealsApi", "SDWebImageSwiftUI"]),
+        .target(name: "FavoriteMealsList", dependencies: ["MealsUI", "MealsRepo", "MealDetails"]),
         .target(name: "MealsUI", dependencies: ["SDWebImageSwiftUI"]),
     ]
 )

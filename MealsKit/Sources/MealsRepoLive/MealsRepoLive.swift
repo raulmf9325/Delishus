@@ -53,13 +53,12 @@ public class MealsRepoLive: MealsRepo {
 
     public func removeFavoriteMeals(ids: [String]) async throws {
         favoriteMealsIds.subtract(ids)
-
-        let favorites = ids.map(FavoriteMealModel.init)
-        try await storage.removeFavoriteMeals(favorites)
+        try await storage.removeFavoriteMeals(ids: ids)
     }
 
     func fetchFavoriteMeals() async throws {
-        self.favoriteMealsIds.formUnion(try await storage.fetchFavoriteMealsIds())
+        let mealsIds = try await storage.fetchFavoriteMealsIds()
+        self.favoriteMealsIds.formUnion(mealsIds)
     }
 }
 
@@ -77,7 +76,8 @@ actor MealsStorage {
     private var context: ModelContext { modelExecutor.modelContext }
 
     func fetchAllMealCategories() throws -> [MealCategory] {
-        try context.fetch(FetchDescriptor<MealCategoryModel>()).map(\.mealCategory)
+        let sortByName = SortDescriptor(\MealCategoryModel.name)
+        return try context.fetch(FetchDescriptor<MealCategoryModel>(sortBy: [sortByName])).map(\.mealCategory)
     }
 
     func saveMealCategories(_ categories: [MealCategory]) throws {
@@ -95,11 +95,14 @@ actor MealsStorage {
             meal.categoryName == categoryName
         }
 
-        return try context.fetch(FetchDescriptor<MealModel>(predicate: mealsWithCategory)).map(\.meal)
+        let sortByName = SortDescriptor(\MealModel.name)
+
+        return try context.fetch(FetchDescriptor<MealModel>(predicate: mealsWithCategory, sortBy: [sortByName])).map(\.meal)
     }
 
     func fetchAllMeals() throws -> [Meal] {
-        try context.fetch(FetchDescriptor<MealModel>()).map(\.meal)
+        let sortByName = SortDescriptor(\MealModel.name)
+        return try context.fetch(FetchDescriptor<MealModel>(sortBy: [sortByName])).map(\.meal)
     }
 
     func saveMeals(_ meals: [Meal]) throws {
@@ -119,7 +122,11 @@ actor MealsStorage {
         try context.save()
     }
 
-    func removeFavoriteMeals(_ models: [FavoriteMealModel]) throws {
+    func removeFavoriteMeals(ids: [String]) throws {
+        let favoritesWithIds = #Predicate<FavoriteMealModel> { favorite in
+            ids.contains(favorite.id)
+        }
+        let models = try context.fetch(FetchDescriptor<FavoriteMealModel>(predicate: favoritesWithIds))
         models.forEach {
             context.delete($0)
         }

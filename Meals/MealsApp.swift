@@ -5,6 +5,7 @@
 //  Created by Raul Mena on 9/8/24.
 //
 
+import FavoriteMealsList
 import MealsApi
 import MealsApiLive
 import MealCategoryList
@@ -24,7 +25,7 @@ struct MealsApp: App {
                         Image(systemName: "house.fill")
                     }
 
-                FavoriteMealsList(repo: MealsRepoLive.shared)
+                FavoriteMealsListView(model: FavoriteMealsListModel(repo: MealsRepoLive.shared))
                     .tag(1)
                     .tabItem {
                         Image(systemName: "heart.fill")
@@ -32,26 +33,6 @@ struct MealsApp: App {
             }
         }
     }
-}
-
-struct FavoriteMealsList: View {
-    let repo: MealsRepo
-    @State private var favorites: [Meal] = []
-
-    var body: some View {
-        List(favorites) {
-            Text($0.name)
-        }
-        .task {
-            do {
-                let allMeals = try await repo.fetchAllMeals()
-                self.favorites = allMeals.filter { repo.favoriteMealsIds.contains($0.id) }
-            } catch {
-
-            }
-        }
-    }
-
 }
 
 #Preview {

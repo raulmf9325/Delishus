@@ -39,6 +39,13 @@ public struct MealsResponse: Decodable {
     public let meals: [Meal]
 }
 
+public extension Meal {
+    static let mock = Meal(id: "0",
+                           name: "White chocolate creme brulee",
+                           categoryName: "Dessert",
+                           thumbnailImageURL: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg")
+}
+
 public extension Array where Element == Meal {
     static var mock: [Meal] {
         [

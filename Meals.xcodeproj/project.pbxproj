@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		060445BE2CAAFAB300E0DC15 /* FavoriteMealsList in Frameworks */ = {isa = PBXBuildFile; productRef = 060445BD2CAAFAB300E0DC15 /* FavoriteMealsList */; };
 		06262D4D2C8E3DC100E75DA4 /* MealsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06262D4C2C8E3DC100E75DA4 /* MealsApp.swift */; };
 		06262D512C8E3DC200E75DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06262D502C8E3DC200E75DA4 /* Assets.xcassets */; };
 		06262D542C8E3DC200E75DA4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06262D532C8E3DC200E75DA4 /* Preview Assets.xcassets */; };
@@ -39,6 +40,7 @@
 				067D60322CA257390048BBA6 /* MealsRepoLive in Frameworks */,
 				0649F6F72C8E4619008159BA /* MealsList in Frameworks */,
 				067D60342CA2FEBE0048BBA6 /* MealCategoryList in Frameworks */,
+				060445BE2CAAFAB300E0DC15 /* FavoriteMealsList in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +114,7 @@
 				067D602F2CA257300048BBA6 /* MealsRepo */,
 				067D60312CA257390048BBA6 /* MealsRepoLive */,
 				067D60332CA2FEBE0048BBA6 /* MealCategoryList */,
+				060445BD2CAAFAB300E0DC15 /* FavoriteMealsList */,
 			);
 			productName = meals;
 			productReference = 06262D492C8E3DC100E75DA4 /* Desserts.app */;
@@ -377,6 +380,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		060445BD2CAAFAB300E0DC15 /* FavoriteMealsList */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FavoriteMealsList;
+		};
 		0649F6F62C8E4619008159BA /* MealsList */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MealsList;
