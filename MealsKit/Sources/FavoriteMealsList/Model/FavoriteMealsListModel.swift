@@ -14,10 +14,6 @@ import MealsRepo
 public class FavoriteMealsListModel {
     public init(repo: MealsRepo) {
         self.repo = repo
-
-        Task {
-            try await refreshFavorites()
-        }
     }
 
     // MARK: - Exposed Members
@@ -27,6 +23,12 @@ public class FavoriteMealsListModel {
 
     func isFavorite(_ meal: Meal) -> Bool {
         repo.favoriteMealsIds.contains(meal.id)
+    }
+
+    func onViewAppeared() {
+        Task {
+            try await refreshFavorites()
+        }
     }
 
     func onFavoriteButtonTapped(_ meal: Meal) {

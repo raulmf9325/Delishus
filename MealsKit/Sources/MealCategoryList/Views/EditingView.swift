@@ -16,6 +16,7 @@ struct EditingView: View {
     let searchResult: [Meal]
     let loading: Bool
     @Bindable var model: MealCategoryListModel
+    let onFavoriteButtonTapped: () -> Void
     let namespace: Namespace.ID
     
     var body: some View {
@@ -39,7 +40,8 @@ struct EditingView: View {
             } else {
                 MealsListView(model: MealsListModel(listBy: .searchResult(searchResult),
                                                     apiClient: .live,
-                                                    mealsRepo: MealsRepoLive.shared))
+                                                    mealsRepo: MealsRepoLive.shared),
+                              onFavoriteButtonTapped: onFavoriteButtonTapped)
             }
         }
     }
@@ -49,5 +51,6 @@ struct EditingView: View {
     EditingView(searchResult: [Meal].mock,
                 loading: false,
                 model: MealCategoryListModel(apiClient: .test, mealsRepo: MealsRepoTest()),
+                onFavoriteButtonTapped: {},
                 namespace: Namespace().wrappedValue)
 }

@@ -13,11 +13,13 @@ import SDWebImageSwiftUI
 import SwiftUI
 
 public struct MealsListView: View {
-    public init(model: MealsListModel) {
+    public init(model: MealsListModel, onFavoriteButtonTapped: @escaping () -> Void) {
         self.model = model
+        self.onFavoriteButtonTapped = onFavoriteButtonTapped
     }
 
     let model: MealsListModel
+    let onFavoriteButtonTapped: () -> Void
 
     public var body: some View {
             Group {
@@ -33,8 +35,12 @@ public struct MealsListView: View {
                 }
             }
             .navigationTitle(model.navigationTitle)
-            .onAppear {
-                model.onViewAppeared()
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: onFavoriteButtonTapped) {
+                        Image(systemName: "heart.fill")
+                    }
+                }
             }
     }
 }
@@ -42,5 +48,6 @@ public struct MealsListView: View {
 #Preview {
     MealsListView(model: MealsListModel(listBy: .category([MealCategory].mock[0]),
                                         apiClient: .test,
-                                        mealsRepo: MealsRepoTest()))
+                                        mealsRepo: MealsRepoTest()),
+                  onFavoriteButtonTapped: {})
 }

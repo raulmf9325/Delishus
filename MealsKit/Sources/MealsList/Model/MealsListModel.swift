@@ -27,9 +27,9 @@ public class MealsListModel {
         self.listBy = listBy
 
         switch listBy {
-        case .category:
-            state = .loading
-        case let .searchResult(meals):
+        case .category(let mealCategory):
+            getMeals(category: mealCategory)
+        case .searchResult(let meals):
             state = .loaded(meals)
         }
     }
@@ -43,7 +43,7 @@ public class MealsListModel {
         case loaded([Meal])
         case error(String, [Meal])
     }
-    var state: State
+    var state: State = .loading
 
     enum SortBy {
         case alphabeticallyAscending
@@ -107,15 +107,6 @@ public class MealsListModel {
     private var debounceTask: Task<Void, Error>?
 
     // MARK: - Exposed interface
-
-    func onViewAppeared() {
-        switch listBy {
-        case .category(let mealCategory):
-            getMeals(category: mealCategory)
-        case .searchResult(let meals):
-            self.state = .loaded(meals)
-        }
-    }
 
     func onRetryButtonTapped() {
         guard case let .category(category) = listBy else { return }

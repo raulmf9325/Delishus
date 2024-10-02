@@ -11,11 +11,13 @@ import SDWebImageSwiftUI
 import SwiftUI
 
 public struct MealCategoryListView: View {
-    public init(model: MealCategoryListModel) {
+    public init(model: MealCategoryListModel, onFavoriteButtonTapped: @escaping () -> Void) {
         self.model = model
+        self.onFavoriteButtonTapped = onFavoriteButtonTapped
     }
     
     @Bindable var model: MealCategoryListModel
+    let onFavoriteButtonTapped: () -> Void
     @Namespace private var namespace
     
     public var body: some View {
@@ -25,19 +27,32 @@ public struct MealCategoryListView: View {
                 case .loading:
                     ListLoadingView()
                 case let .loaded(categories):
-                    ListView(categories: categories, model: model, namespace: namespace)
+                    ListView(categories: categories, model: model,
+                             onFavoriteButtonTapped: onFavoriteButtonTapped, namespace: namespace)
                 case let .searching(searchResult, _, loading):
                     EditingView(searchResult: searchResult,
                                 loading: loading,
                                 model: model,
+                                onFavoriteButtonTapped: onFavoriteButtonTapped,
                                 namespace: namespace)
                 case let .error(error, persistedCategories):
-                    ListView(categories: persistedCategories, model: model, namespace: namespace, error: error)
+                    ListView(categories: persistedCategories, model: model,
+                             onFavoriteButtonTapped: onFavoriteButtonTapped,
+                             namespace: namespace,
+                             error: error)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: onFavoriteButtonTapped) {
+                        Image(systemName: "heart.fill")
+                    }
                 }
             }
             .navigationTitle("Meals")
         }
         .tint(Color.primary)
+        .toolbar(.hidden, for: .tabBar)
         .onAppear {
             model.onViewAppeared()
         }
@@ -46,5 +61,6 @@ public struct MealCategoryListView: View {
 
 #Preview {
     MealCategoryListView(model: MealCategoryListModel(apiClient: .test,
-                                                      mealsRepo: MealsRepoTest()))
+                                                      mealsRepo: MealsRepoTest()),
+                         onFavoriteButtonTapped: {})
 }

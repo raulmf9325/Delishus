@@ -17,24 +17,41 @@ import SwiftUI
 struct MealsApp: App {
     var body: some Scene {
         WindowGroup {
-            TabView {
-                MealCategoryListView(model: MealCategoryListModel(apiClient: .live,
-                                                                  mealsRepo: MealsRepoLive.shared))
-                    .tag(0)
-                    .tabItem {
-                        Image(systemName: "house.fill")
-                    }
+            AppView()
+        }
+    }
+}
 
-                FavoriteMealsListView(model: FavoriteMealsListModel(repo: MealsRepoLive.shared))
-                    .tag(1)
-                    .tabItem {
-                        Image(systemName: "heart.fill")
-                    }
-            }
+struct AppView: View {
+    enum Tab {
+        case home
+        case favorites
+    }
+    @State private var selectedTab: Tab = .home
+
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            MealCategoryListView(model: MealCategoryListModel(apiClient: .live,
+                                                              mealsRepo: MealsRepoLive.shared),
+                                 onFavoriteButtonTapped: onFavoriteButtonTapped)
+            .tag(Tab.home)
+
+            FavoriteMealsListView(model: FavoriteMealsListModel(repo: MealsRepoLive.shared),
+                                  onFavoriteButtonTapped: onFavoriteButtonTapped)
+                .tag(Tab.favorites)
+        }
+    }
+
+    private func onFavoriteButtonTapped() {
+        switch selectedTab {
+        case .home:
+            selectedTab = .favorites
+        case .favorites:
+            selectedTab = .home
         }
     }
 }
 
 #Preview {
-    MealCategoryListView(model: MealCategoryListModel(apiClient: .test, mealsRepo: MealsRepoTest()))
+    AppView()
 }

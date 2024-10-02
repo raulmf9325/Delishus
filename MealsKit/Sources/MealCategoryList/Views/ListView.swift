@@ -15,6 +15,7 @@ import SwiftUI
 struct ListView: View {
     let categories: [MealCategory]
     let model: MealCategoryListModel
+    let onFavoriteButtonTapped: () -> Void
     let namespace: Namespace.ID
     var error: String?
 
@@ -82,7 +83,8 @@ struct ListView: View {
         .navigationDestination(for: MealCategory.self) { category in
             MealsListView(model: MealsListModel(listBy: .category(category),
                                                 apiClient: .live,
-                                                mealsRepo: MealsRepoLive.shared))
+                                                mealsRepo: MealsRepoLive.shared),
+                          onFavoriteButtonTapped: onFavoriteButtonTapped)
         }
         .background(
             colorScheme == .light ?  RoundedRectangle(cornerRadius: 10).fill(Color(.secondarySystemBackground)).ignoresSafeArea() : nil
@@ -93,6 +95,7 @@ struct ListView: View {
 #Preview {
     ListView(categories: [MealCategory].mock,
              model: MealCategoryListModel(apiClient: .test, mealsRepo: MealsRepoTest()),
+             onFavoriteButtonTapped: {},
              namespace: Namespace().wrappedValue)
 }
 

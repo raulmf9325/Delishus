@@ -13,11 +13,13 @@ import MealsUI
 import SwiftUI
 
 public struct FavoriteMealsListView: View {
-    public init(model: FavoriteMealsListModel) {
+    public init(model: FavoriteMealsListModel, onFavoriteButtonTapped: @escaping () -> Void) {
         self.model = model
+        self.onFavoriteButtonTapped = onFavoriteButtonTapped
     }
 
     let model: FavoriteMealsListModel
+    let onFavoriteButtonTapped: () -> Void
 
     public var body: some View {
         NavigationStack {
@@ -31,10 +33,23 @@ public struct FavoriteMealsListView: View {
                                                         apiClient: .live))
             }
             .navigationTitle("Favorites")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: onFavoriteButtonTapped) {
+                        Image(systemName: "xmark")
+                    }
+                }
+            }
+        }
+        .tint(Color.primary)
+        .toolbar(.hidden, for: .tabBar)
+        .onAppear {
+            model.onViewAppeared()
         }
     }
 }
 
 #Preview {
-    FavoriteMealsListView(model: FavoriteMealsListModel(repo: MealsRepoTest()))
+    FavoriteMealsListView(model: FavoriteMealsListModel(repo: MealsRepoTest()),
+                          onFavoriteButtonTapped: {})
 }
