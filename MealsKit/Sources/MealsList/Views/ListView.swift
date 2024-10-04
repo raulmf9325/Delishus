@@ -9,6 +9,7 @@ import MealsApi
 import MealsApiLive
 import MealDetails
 import MealsRepo
+import MealsRepoLive
 import MealsUI
 import SwiftUI
 
@@ -37,7 +38,8 @@ struct ListView: View {
         }
         .navigationDestination(for: Meal.self) { meal in
             MealDetailsView(model: MealDetailsModel(meal: meal,
-                                                    apiClient: .live))
+                                                    apiClient: .live,
+                                                    mealsRepo: MealsRepoLive.shared))
         }
     }
 

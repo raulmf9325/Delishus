@@ -12,6 +12,7 @@ public enum MealsRepoError: Error {
     case notFound
 }
 
+@MainActor
 public protocol MealsRepo {
     var favoriteMealsIds: Set<String> { get }
     func fetchAllMealCategories() async throws -> [MealCategory]

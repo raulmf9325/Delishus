@@ -7,14 +7,16 @@
 
 import Foundation
 import MealsApi
+import MealsRepo
 import SwiftUI
 
 @MainActor
 @Observable
 public class MealDetailsModel {
-    public init(meal: Meal, apiClient: MealsApi) {
+    public init(meal: Meal, apiClient: MealsApi, mealsRepo: MealsRepo) {
         self.meal = meal
         self.apiClient = apiClient
+        self.mealsRepo = mealsRepo
         getDetails()
     }
 
@@ -40,6 +42,7 @@ public class MealDetailsModel {
 
     private let meal: Meal
     private let apiClient: MealsApi
+    private let mealsRepo: MealsRepo
 
     func onWatchOnYouTubeButtonTapped() {
         guard case .loaded(let mealDetails) = state, let url = mealDetails.youtubeURL else { return }
@@ -48,6 +51,20 @@ public class MealDetailsModel {
 
     func onRetryButtonTapped() {
         getDetails()
+    }
+
+    func isFavorite() -> Bool {
+        mealsRepo.favoriteMealsIds.contains(meal.id)
+    }
+
+    func onFavoriteButtonTapped() {
+        Task {
+            if mealsRepo.favoriteMealsIds.contains(meal.id) {
+                try await mealsRepo.removeFavoriteMeals(ids: [meal.id])
+            } else {
+                try await mealsRepo.saveFavoriteMeals(ids: [meal.id])
+            }
+        }
     }
 
     private func getDetails() {

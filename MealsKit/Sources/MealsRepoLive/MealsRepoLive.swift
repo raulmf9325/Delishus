@@ -11,6 +11,7 @@ import MealsRepo
 import SwiftData
 
 @Observable
+@MainActor
 public class MealsRepoLive: MealsRepo {
     public static let shared = MealsRepoLive()
     

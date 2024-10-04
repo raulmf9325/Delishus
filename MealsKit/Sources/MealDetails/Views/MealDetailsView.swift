@@ -6,6 +6,7 @@
 //
 
 import MealsApi
+import MealsRepo
 import MealsUI
 import SDWebImageSwiftUI
 import SwiftUI
@@ -45,9 +46,14 @@ public struct MealDetailsView: View {
                     PosterImageView(imageURlString: mealDetails.thumbnailImageURL ?? "")
 
                     VStack(alignment: .leading, spacing: 20) {
-                        Text(mealDetails.name)
-                            .font(.title2)
-                            .bold()
+                        HStack(alignment: .top) {
+                            Text(mealDetails.name)
+                                .font(.title2)
+                                .bold()
+                            Spacer(minLength: 20)
+                            favoritesButton
+                        }
+
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Ingredients")
                                 .font(.title3)
@@ -102,7 +108,13 @@ public struct MealDetailsView: View {
             ErrorView(errorMessage: error, onRetryButtonTapped: model.onRetryButtonTapped)
         }
     }
-    
+
+    var favoritesButton: some View {
+        Button(action: model.onFavoriteButtonTapped) {
+            Image(systemName: model.isFavorite() ? "heart.fill" : "heart")
+        }
+    }
+
     var placeholderText: some View {
         Text("""
             Lorem ipsum dolor sit amet, consectetur adipiscing elit\nLorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -135,6 +147,7 @@ struct PosterImageView: View {
 #Preview {
     NavigationStack {
         MealDetailsView(model: MealDetailsModel(meal: .mock,
-                                                apiClient: .test))
+                                                apiClient: .test,
+                                                mealsRepo: MealsRepoTest()))
     }
 }
