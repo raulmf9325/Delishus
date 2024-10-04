@@ -14,7 +14,7 @@ import MealsRepoLive
 import SwiftUI
 
 @main
-struct MealsApp: App {
+struct FeastlyApp: App {
     var body: some Scene {
         WindowGroup {
             AppView()

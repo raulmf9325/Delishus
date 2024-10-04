@@ -3,12 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		060445BE2CAAFAB300E0DC15 /* FavoriteMealsList in Frameworks */ = {isa = PBXBuildFile; productRef = 060445BD2CAAFAB300E0DC15 /* FavoriteMealsList */; };
-		06262D4D2C8E3DC100E75DA4 /* MealsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06262D4C2C8E3DC100E75DA4 /* MealsApp.swift */; };
+		0609C2AB2CB0916B00B0B138 /* FavoriteMealsList in Frameworks */ = {isa = PBXBuildFile; productRef = 0609C2AA2CB0916B00B0B138 /* FavoriteMealsList */; };
+		0609C2AD2CB0916B00B0B138 /* MealCategoryList in Frameworks */ = {isa = PBXBuildFile; productRef = 0609C2AC2CB0916B00B0B138 /* MealCategoryList */; };
+		0609C2AF2CB0916B00B0B138 /* MealDetails in Frameworks */ = {isa = PBXBuildFile; productRef = 0609C2AE2CB0916B00B0B138 /* MealDetails */; };
+		0609C2B12CB0916B00B0B138 /* MealsApi in Frameworks */ = {isa = PBXBuildFile; productRef = 0609C2B02CB0916B00B0B138 /* MealsApi */; };
+		0609C2B32CB0916B00B0B138 /* MealsApiLive in Frameworks */ = {isa = PBXBuildFile; productRef = 0609C2B22CB0916B00B0B138 /* MealsApiLive */; };
+		0609C2B52CB0916B00B0B138 /* MealsList in Frameworks */ = {isa = PBXBuildFile; productRef = 0609C2B42CB0916B00B0B138 /* MealsList */; };
+		0609C2B72CB0916B00B0B138 /* MealsRepo in Frameworks */ = {isa = PBXBuildFile; productRef = 0609C2B62CB0916B00B0B138 /* MealsRepo */; };
+		0609C2B92CB0916B00B0B138 /* MealsRepoLive in Frameworks */ = {isa = PBXBuildFile; productRef = 0609C2B82CB0916B00B0B138 /* MealsRepoLive */; };
+		06262D4D2C8E3DC100E75DA4 /* FeastlyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06262D4C2C8E3DC100E75DA4 /* FeastlyApp.swift */; };
 		06262D512C8E3DC200E75DA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06262D502C8E3DC200E75DA4 /* Assets.xcassets */; };
 		06262D542C8E3DC200E75DA4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06262D532C8E3DC200E75DA4 /* Preview Assets.xcassets */; };
 		0649F6F72C8E4619008159BA /* MealsList in Frameworks */ = {isa = PBXBuildFile; productRef = 0649F6F62C8E4619008159BA /* MealsList */; };
@@ -21,9 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0624EC432C8E4437007ADC57 /* MealsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MealsKit; sourceTree = "<group>"; };
-		06262D492C8E3DC100E75DA4 /* Desserts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Desserts.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		06262D4C2C8E3DC100E75DA4 /* MealsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsApp.swift; sourceTree = "<group>"; };
+		06262D492C8E3DC100E75DA4 /* Feastly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feastly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		06262D4C2C8E3DC100E75DA4 /* FeastlyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeastlyApp.swift; sourceTree = "<group>"; };
 		06262D502C8E3DC200E75DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06262D532C8E3DC200E75DA4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -34,13 +41,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				06F6DB292C8FAA90006E6E24 /* MealDetails in Frameworks */,
+				0609C2AF2CB0916B00B0B138 /* MealDetails in Frameworks */,
 				067D60302CA257300048BBA6 /* MealsRepo in Frameworks */,
 				0649F6F92C8E55A8008159BA /* MealsApi in Frameworks */,
+				0609C2B72CB0916B00B0B138 /* MealsRepo in Frameworks */,
+				0609C2B92CB0916B00B0B138 /* MealsRepoLive in Frameworks */,
 				0649F6FB2C8E55A8008159BA /* MealsApiLive in Frameworks */,
+				0609C2B52CB0916B00B0B138 /* MealsList in Frameworks */,
 				067D60322CA257390048BBA6 /* MealsRepoLive in Frameworks */,
+				0609C2AB2CB0916B00B0B138 /* FavoriteMealsList in Frameworks */,
 				0649F6F72C8E4619008159BA /* MealsList in Frameworks */,
+				0609C2B32CB0916B00B0B138 /* MealsApiLive in Frameworks */,
+				0609C2B12CB0916B00B0B138 /* MealsApi in Frameworks */,
 				067D60342CA2FEBE0048BBA6 /* MealCategoryList in Frameworks */,
 				060445BE2CAAFAB300E0DC15 /* FavoriteMealsList in Frameworks */,
+				0609C2AD2CB0916B00B0B138 /* MealCategoryList in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,8 +65,7 @@
 		06262D402C8E3DC100E75DA4 = {
 			isa = PBXGroup;
 			children = (
-				0624EC432C8E4437007ADC57 /* MealsKit */,
-				06262D4B2C8E3DC100E75DA4 /* Meals */,
+				06262D4B2C8E3DC100E75DA4 /* Feastly */,
 				06262D4A2C8E3DC100E75DA4 /* Products */,
 				0649F6F52C8E4619008159BA /* Frameworks */,
 			);
@@ -60,19 +74,19 @@
 		06262D4A2C8E3DC100E75DA4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				06262D492C8E3DC100E75DA4 /* Desserts.app */,
+				06262D492C8E3DC100E75DA4 /* Feastly.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		06262D4B2C8E3DC100E75DA4 /* Meals */ = {
+		06262D4B2C8E3DC100E75DA4 /* Feastly */ = {
 			isa = PBXGroup;
 			children = (
-				06262D4C2C8E3DC100E75DA4 /* MealsApp.swift */,
+				06262D4C2C8E3DC100E75DA4 /* FeastlyApp.swift */,
 				06262D502C8E3DC200E75DA4 /* Assets.xcassets */,
 				06262D522C8E3DC200E75DA4 /* Preview Content */,
 			);
-			path = Meals;
+			path = Feastly;
 			sourceTree = "<group>";
 		};
 		06262D522C8E3DC200E75DA4 /* Preview Content */ = {
@@ -93,9 +107,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		06262D482C8E3DC100E75DA4 /* Meals */ = {
+		06262D482C8E3DC100E75DA4 /* Feastly */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Meals" */;
+			buildConfigurationList = 06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Feastly" */;
 			buildPhases = (
 				06262D452C8E3DC100E75DA4 /* Sources */,
 				06262D462C8E3DC100E75DA4 /* Frameworks */,
@@ -105,7 +119,7 @@
 			);
 			dependencies = (
 			);
-			name = Meals;
+			name = Feastly;
 			packageProductDependencies = (
 				0649F6F62C8E4619008159BA /* MealsList */,
 				0649F6F82C8E55A8008159BA /* MealsApi */,
@@ -115,9 +129,17 @@
 				067D60312CA257390048BBA6 /* MealsRepoLive */,
 				067D60332CA2FEBE0048BBA6 /* MealCategoryList */,
 				060445BD2CAAFAB300E0DC15 /* FavoriteMealsList */,
+				0609C2AA2CB0916B00B0B138 /* FavoriteMealsList */,
+				0609C2AC2CB0916B00B0B138 /* MealCategoryList */,
+				0609C2AE2CB0916B00B0B138 /* MealDetails */,
+				0609C2B02CB0916B00B0B138 /* MealsApi */,
+				0609C2B22CB0916B00B0B138 /* MealsApiLive */,
+				0609C2B42CB0916B00B0B138 /* MealsList */,
+				0609C2B62CB0916B00B0B138 /* MealsRepo */,
+				0609C2B82CB0916B00B0B138 /* MealsRepoLive */,
 			);
 			productName = meals;
-			productReference = 06262D492C8E3DC100E75DA4 /* Desserts.app */;
+			productReference = 06262D492C8E3DC100E75DA4 /* Feastly.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -135,7 +157,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Meals" */;
+			buildConfigurationList = 06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Feastly" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -144,11 +166,14 @@
 				Base,
 			);
 			mainGroup = 06262D402C8E3DC100E75DA4;
+			packageReferences = (
+				0609C2A92CB0916B00B0B138 /* XCLocalSwiftPackageReference "FeastlyKit" */,
+			);
 			productRefGroup = 06262D4A2C8E3DC100E75DA4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				06262D482C8E3DC100E75DA4 /* Meals */,
+				06262D482C8E3DC100E75DA4 /* Feastly */,
 			);
 		};
 /* End PBXProject section */
@@ -170,7 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06262D4D2C8E3DC100E75DA4 /* MealsApp.swift in Sources */,
+				06262D4D2C8E3DC100E75DA4 /* FeastlyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,7 +328,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"meals/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Feastly/Preview Content\"";
 				DEVELOPMENT_TEAM = 74Q66W826L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -318,8 +343,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.home.meals;
-				PRODUCT_NAME = Desserts;
+				PRODUCT_BUNDLE_IDENTIFIER = com.home.feastly;
+				PRODUCT_NAME = Feastly;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -333,7 +358,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"meals/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Feastly/Preview Content\"";
 				DEVELOPMENT_TEAM = 74Q66W826L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -348,8 +373,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.home.meals;
-				PRODUCT_NAME = Desserts;
+				PRODUCT_BUNDLE_IDENTIFIER = com.home.feastly;
+				PRODUCT_NAME = Feastly;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -359,7 +384,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Meals" */ = {
+		06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Feastly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				06262D552C8E3DC200E75DA4 /* Debug */,
@@ -368,7 +393,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Meals" */ = {
+		06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Feastly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				06262D582C8E3DC200E75DA4 /* Debug */,
@@ -379,10 +404,49 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		0609C2A92CB0916B00B0B138 /* XCLocalSwiftPackageReference "FeastlyKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = FeastlyKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		060445BD2CAAFAB300E0DC15 /* FavoriteMealsList */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FavoriteMealsList;
+		};
+		0609C2AA2CB0916B00B0B138 /* FavoriteMealsList */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FavoriteMealsList;
+		};
+		0609C2AC2CB0916B00B0B138 /* MealCategoryList */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealCategoryList;
+		};
+		0609C2AE2CB0916B00B0B138 /* MealDetails */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealDetails;
+		};
+		0609C2B02CB0916B00B0B138 /* MealsApi */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealsApi;
+		};
+		0609C2B22CB0916B00B0B138 /* MealsApiLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealsApiLive;
+		};
+		0609C2B42CB0916B00B0B138 /* MealsList */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealsList;
+		};
+		0609C2B62CB0916B00B0B138 /* MealsRepo */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealsRepo;
+		};
+		0609C2B82CB0916B00B0B138 /* MealsRepoLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealsRepoLive;
 		};
 		0649F6F62C8E4619008159BA /* MealsList */ = {
 			isa = XCSwiftPackageProductDependency;
