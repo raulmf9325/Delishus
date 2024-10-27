@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		06262D492C8E3DC100E75DA4 /* Feastly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feastly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		06262D492C8E3DC100E75DA4 /* Delishus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Delishus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06262D4C2C8E3DC100E75DA4 /* FeastlyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeastlyApp.swift; sourceTree = "<group>"; };
 		06262D502C8E3DC200E75DA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06262D532C8E3DC200E75DA4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		06262D402C8E3DC100E75DA4 = {
 			isa = PBXGroup;
 			children = (
-				06262D4B2C8E3DC100E75DA4 /* Feastly */,
+				06262D4B2C8E3DC100E75DA4 /* Delishus */,
 				06262D4A2C8E3DC100E75DA4 /* Products */,
 				0649F6F52C8E4619008159BA /* Frameworks */,
 			);
@@ -74,19 +74,19 @@
 		06262D4A2C8E3DC100E75DA4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				06262D492C8E3DC100E75DA4 /* Feastly.app */,
+				06262D492C8E3DC100E75DA4 /* Delishus.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		06262D4B2C8E3DC100E75DA4 /* Feastly */ = {
+		06262D4B2C8E3DC100E75DA4 /* Delishus */ = {
 			isa = PBXGroup;
 			children = (
 				06262D4C2C8E3DC100E75DA4 /* FeastlyApp.swift */,
 				06262D502C8E3DC200E75DA4 /* Assets.xcassets */,
 				06262D522C8E3DC200E75DA4 /* Preview Content */,
 			);
-			path = Feastly;
+			path = Delishus;
 			sourceTree = "<group>";
 		};
 		06262D522C8E3DC200E75DA4 /* Preview Content */ = {
@@ -107,9 +107,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		06262D482C8E3DC100E75DA4 /* Feastly */ = {
+		06262D482C8E3DC100E75DA4 /* Delishus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Feastly" */;
+			buildConfigurationList = 06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Delishus" */;
 			buildPhases = (
 				06262D452C8E3DC100E75DA4 /* Sources */,
 				06262D462C8E3DC100E75DA4 /* Frameworks */,
@@ -119,7 +119,7 @@
 			);
 			dependencies = (
 			);
-			name = Feastly;
+			name = Delishus;
 			packageProductDependencies = (
 				0649F6F62C8E4619008159BA /* MealsList */,
 				0649F6F82C8E55A8008159BA /* MealsApi */,
@@ -139,7 +139,7 @@
 				0609C2B82CB0916B00B0B138 /* MealsRepoLive */,
 			);
 			productName = meals;
-			productReference = 06262D492C8E3DC100E75DA4 /* Feastly.app */;
+			productReference = 06262D492C8E3DC100E75DA4 /* Delishus.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -157,7 +157,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Feastly" */;
+			buildConfigurationList = 06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Delishus" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -167,13 +167,13 @@
 			);
 			mainGroup = 06262D402C8E3DC100E75DA4;
 			packageReferences = (
-				0609C2A92CB0916B00B0B138 /* XCLocalSwiftPackageReference "FeastlyKit" */,
+				0636E00F2CBF5781002D0E8B /* XCLocalSwiftPackageReference "DelishusKit" */,
 			);
 			productRefGroup = 06262D4A2C8E3DC100E75DA4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				06262D482C8E3DC100E75DA4 /* Feastly */,
+				06262D482C8E3DC100E75DA4 /* Delishus */,
 			);
 		};
 /* End PBXProject section */
@@ -328,7 +328,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Feastly/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Delishus/Preview Content\"";
 				DEVELOPMENT_TEAM = 74Q66W826L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -343,8 +343,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.home.feastly;
-				PRODUCT_NAME = Feastly;
+				PRODUCT_BUNDLE_IDENTIFIER = com.home.delishus;
+				PRODUCT_NAME = Delishus;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -358,7 +358,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Feastly/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Delishus/Preview Content\"";
 				DEVELOPMENT_TEAM = 74Q66W826L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -373,8 +373,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.home.feastly;
-				PRODUCT_NAME = Feastly;
+				PRODUCT_BUNDLE_IDENTIFIER = com.home.delishus;
+				PRODUCT_NAME = Delishus;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -384,7 +384,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Feastly" */ = {
+		06262D442C8E3DC100E75DA4 /* Build configuration list for PBXProject "Delishus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				06262D552C8E3DC200E75DA4 /* Debug */,
@@ -393,7 +393,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Feastly" */ = {
+		06262D572C8E3DC200E75DA4 /* Build configuration list for PBXNativeTarget "Delishus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				06262D582C8E3DC200E75DA4 /* Debug */,
@@ -405,9 +405,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		0609C2A92CB0916B00B0B138 /* XCLocalSwiftPackageReference "FeastlyKit" */ = {
+		0636E00F2CBF5781002D0E8B /* XCLocalSwiftPackageReference "DelishusKit" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = FeastlyKit;
+			relativePath = DelishusKit;
 		};
 /* End XCLocalSwiftPackageReference section */
 

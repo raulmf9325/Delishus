@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "06262D482C8E3DC100E75DA4"
-               BuildableName = "Feastly.app"
-               BlueprintName = "Feastly"
-               ReferencedContainer = "container:Feastly.xcodeproj">
+               BuildableName = "Delishus.app"
+               BlueprintName = "Delishus"
+               ReferencedContainer = "container:Delishus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "06262D482C8E3DC100E75DA4"
-            BuildableName = "Feastly.app"
-            BlueprintName = "Feastly"
-            ReferencedContainer = "container:Feastly.xcodeproj">
+            BuildableName = "Delishus.app"
+            BlueprintName = "Delishus"
+            ReferencedContainer = "container:Delishus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "06262D482C8E3DC100E75DA4"
-            BuildableName = "Feastly.app"
-            BlueprintName = "Feastly"
-            ReferencedContainer = "container:Feastly.xcodeproj">
+            BuildableName = "Delishus.app"
+            BlueprintName = "Delishus"
+            ReferencedContainer = "container:Delishus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

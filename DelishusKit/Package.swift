@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "FeastlyKit",
+    name: "DelishusKit",
     platforms: [
         .iOS(.v17)
     ],
